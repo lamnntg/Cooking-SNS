@@ -1,0 +1,25 @@
+// Custom Dropdown Styling
+
+.dropdown {
+  .dropdown-menu {
+    top: 5px !important;
+    font-size: $dropdown-font-size;
+    .dropdown-header {
+      font-weight: 800;
+      font-size: 0.65rem;
+      color: $gray-500;
+    }
+    .logout-item:hover {
+        color: white;
+        background-color: rgb(235, 39, 39);
+    }
+  }
+}
+
+// Utility class to hide arrow from dropdown
+
+.dropdown.no-arrow {
+  .dropdown-toggle::after {
+    display: none;
+  }
+}
