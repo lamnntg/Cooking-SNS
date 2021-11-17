@@ -1,4 +1,4 @@
-# Con Chim Nau Chin
+# Con Chim Nấu Chín
 
 ## Installation
 
@@ -22,4 +22,4 @@
 
 ## Open web
 
-**http://localhost:8080**
+**http://localhost:8000**
