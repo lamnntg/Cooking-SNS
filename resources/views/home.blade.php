@@ -27,7 +27,7 @@
                         </svg>
                     </div>
                     <div class="story__picture">
-                        <img src="{{asset('template/assets/default-user.png')}}" alt="User Picture">
+                        <img src="{{asset('images/default-user.png')}}" alt="User Picture">
                     </div>
                 </div>
                 <span class="story__user">usernick1</span>
@@ -41,7 +41,7 @@
                         </svg>
                     </div>
                     <div class="story__picture">
-                        <img src="{{asset('template/assets/default-user.png')}}" alt="User Picture">
+                        <img src="{{asset('images/default-user.png')}}" alt="User Picture">
                     </div>
                 </div>
                 <span class="story__user">usernick4</span>
@@ -59,7 +59,7 @@
             <div class="post__header">
                 <div class="post__profile">
                     <a href="https://github.com/leocosta1" target="_blank" class="post__avatar">
-                        <img src="{{asset('template/assets/default-user.png')}}" alt="User Picture">
+                        <img src="{{asset('images/default-user.png')}}" alt="User Picture">
                     </a>
                     <a href="https://github.com/leocosta1" target="_blank" class="post__user">leocosta1</a>
                 </div>
@@ -75,7 +75,7 @@
 
             <div class="post__content">
                 <div class="post__medias">
-                    <img class="post__media" src="{{asset('template/assets/insta-clone.png')}}" alt="Post Content">
+                    <img class="post__media" src="{{asset('images/insta-clone.png')}}" alt="Post Content">
                 </div>
             </div>
 
@@ -109,7 +109,7 @@
                 <div class="post__infos">
                     <div class="post__likes">
                         <a href="#" class="post__likes-avatar">
-                            <img src="{{asset('template/assets/default-user.png')}}" alt="User Picture">
+                            <img src="{{asset('images/default-user.png')}}" alt="User Picture">
                         </a>
 
                         <span>Liked by <a class="post__name--underline" href="#">user123</a> and <a href="#">73 others</a></span>
@@ -132,7 +132,7 @@
 <section class="side-menu">
     <div class="side-menu__user-profile">
         <a href="https://github.com/leocosta1" target="_blank" class="side-menu__user-avatar">
-            <img src="{{asset('template/assets/default-user.png')}}" alt="User Picture">
+            <img src="{{asset('images/default-user.png')}}" alt="User Picture">
         </a>
         <div class="side-menu__user-info">
             <a href="https://github.com/leocosta1" target="_blank">leocosta1</a>
@@ -149,7 +149,7 @@
         <div class="side-menu__suggestions-content">
             <div class="side-menu__suggestion">
                 <a href="#" class="side-menu__suggestion-avatar">
-                    <img src="{{asset('template/assets/default-user.png')}}" alt="User Picture">
+                    <img src="{{asset('images/default-user.png')}}" alt="User Picture">
                 </a>
                 <div class="side-menu__suggestion-info">
                     <a href="#">usernick16</a>

@@ -74,7 +74,7 @@
             <button class="profile-button">
                 <div class="profile-button__border"></div>
                 <div class="profile-button__picture">
-                <img src="{{asset('template/assets/default-user.png')}}" alt="User Picture">
+                <img src="{{asset('images/default-user.png')}}" alt="User Picture">
                 </div>
             </button>
         </div>

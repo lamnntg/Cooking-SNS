@@ -1,0 +1,17 @@
+/node_modules
+/public
+/public/storage
+/storage/*.key
+/vendor
+/mysql-data
+/.idea
+/docker/nginx_conf/localhost-key.pem
+/docker/nginx_conf/localhost.pem
+.env
+.env.testing
+.env.backup
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
