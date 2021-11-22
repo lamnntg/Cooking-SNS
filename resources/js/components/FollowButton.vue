@@ -6,7 +6,7 @@
       @click="clickFollow"
     >
       <i
-        class="mr-1"
+        class="me-1"
         :class="buttonIcon"
       ></i>
       {{ buttonText }}
