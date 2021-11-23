@@ -21,8 +21,8 @@
                     </div>
                     <div class="modal-body">
                         @include('error_card_list')
-                        <form method="POST" action="{{ route('articles.store') }}">
-                            @include('articles.form')
+                        <form method="POST" action="{{ route('recipes.store') }}">
+                            @include('recipes.form')
                             <button type="submit" class="btn btn-primary float-end mt-3">投稿する</button>
                         </form>
                     </div>
@@ -30,8 +30,8 @@
             </div>
         </div>
 
-        @foreach ($articles as $article)
-            @include('articles.card')
+        @foreach ($recipes as $recipe)
+            @include('recipes.card')
         @endforeach
 
     </div>
