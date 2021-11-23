@@ -15,8 +15,8 @@ class CreateSaveTable extends Migration
     {
         Schema::create('saves', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigIncrements('user_id');
-            $table->bigIncrements('recipe_id');
+            $table->bigInteger('user_id');
+            $table->bigInteger('recipe_id');
             $table->timestamps();
         });
     }
