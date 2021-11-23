@@ -87,4 +87,14 @@ class UserController extends Controller
 
         return ['name' => $name];
     }
+
+    /**
+     * profile function
+     *
+     * @return void
+     */
+    public function profile()
+    {
+        return view('pages.profile.index');
+    }
 }

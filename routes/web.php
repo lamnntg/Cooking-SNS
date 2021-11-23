@@ -33,6 +33,8 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('/{name}/follow', 'UserController@unfollow')->name('unfollow');
         });
     });
+
+    Route::get('/profile', 'UserController@profile')->name('profile.index');
 });
 
 
