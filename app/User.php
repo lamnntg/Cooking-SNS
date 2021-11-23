@@ -46,9 +46,9 @@ class User extends Authenticatable
         $this->notify(new PasswordResetNotification($token, new BareMail()));
     }
 
-    public function articles(): HasMany
+    public function recipes(): HasMany
     {
-        return $this->hasMany('App\Article');
+        return $this->hasMany('App\Recipe');
     }
 
     public function followers(): BelongsToMany
@@ -63,7 +63,17 @@ class User extends Authenticatable
 
     public function likes(): BelongsToMany
     {
-        return $this->belongsToMany('App\Article', 'likes')->withTimestamps();
+        return $this->belongsToMany('App\Recipe', 'likes')->withTimestamps();
+    }
+
+    public function saves(): BelongsToMany
+    {
+        return $this->belongsToMany('App\Recipe', 'saves')->withTimestamps();
+    }
+
+    public function comments(): BelongsToMany
+    {
+        return $this->belongsToMany('App\Recipe', 'comments')->withTimestamps();
     }
 
     public function isFollowedBy(?User $user): bool

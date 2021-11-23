@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ArticleRequest extends FormRequest
+class RecipeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,8 @@ class ArticleRequest extends FormRequest
     {
         return [
             'title' => 'required|max:50',
-            'body' => 'required|max:500',
-            'tags' => 'json|regex:/^(?!.*\s).+$/u|regex:/^(?!.*\/).*$/u',
+            // 'body' => 'required|max:500',
+            // 'tags' => 'json|regex:/^(?!.*\s).+$/u|regex:/^(?!.*\/).*$/u',
         ];
     }
 
@@ -34,12 +34,12 @@ class ArticleRequest extends FormRequest
     {
         return [
             'title' => 'タイトル',
-            'body' => '本文',
-            'tags' => 'タグ',
+            // 'body' => '本文',
+            // 'tags' => 'タグ',
         ];
     }
 
-    public function passedValidation()
+    public function passedValidation() // nayf neen bor k ?
     {
         $this->tags = collect(json_decode($this->tags))
             ->slice(0, 5)
