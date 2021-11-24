@@ -79,7 +79,11 @@ class RecipeController extends Controller
 
     public function update(RecipeRequest $request, Recipe $recipe)
     {
-        $recipe->fill($request->all())->save();
+        //TODO: check if update fail
+        $recipe->update([
+            'title' => $request->title,
+            'description' => $request->body,
+        ]);
 
         $recipe->tags()->detach();
         $request->tags->each(function ($tagName) use ($recipe) {
