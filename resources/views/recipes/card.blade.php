@@ -1,9 +1,9 @@
 <div class="card mt-3">
     <div class="card-header d-flex">
         <h3 class="card-title text-capitalize">
-            {{ $article->title }}
+            {{ $recipe->title }}
         </h3>
-        @if (Auth::id() === $article->user_id)
+        @if (Auth::id() === $recipe->user_id)
             <!-- dropdown -->
             <div class="ms-auto card-text">
                 <div class="dropdown">
@@ -13,12 +13,12 @@
                         </button>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="{{ route('articles.edit', ['article' => $article]) }}">
+                        <a class="dropdown-item" href="{{ route('recipes.edit', ['recipe' => $recipe]) }}">
                             <i class="fas fa-pen mr-1"></i>記事を更新する
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item text-danger" data-bs-toggle="modal"
-                            data-bs-target="#modal-delete-{{ $article->id }}">
+                            data-bs-target="#modal-delete-{{ $recipe->id }}">
                             <i class="fas fa-trash-alt mr-1"></i>記事を削除する
                         </a>
                     </div>
@@ -27,7 +27,7 @@
             <!-- dropdown -->
 
             <!-- modal -->
-            <div id="modal-delete-{{ $article->id }}" class="modal fade" tabindex="-1" role="dialog">
+            <div id="modal-delete-{{ $recipe->id }}" class="modal fade" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -36,11 +36,11 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form method="POST" action="{{ route('articles.destroy', ['article' => $article]) }}">
+                        <form method="POST" action="{{ route('recipes.destroy', ['recipe' => $recipe]) }}">
                             @csrf
                             @method('DELETE')
                             <div class="modal-body">
-                                {{ $article->title }}を削除します。よろしいですか？
+                                {{ $recipe->title }}を削除します。よろしいですか？
                             </div>
                             <div class="modal-footer flex-end">
                                 <a class="btn btn-outline-secondary" data-bs-dismiss="modal">キャンセル</a>
@@ -55,25 +55,25 @@
     </div>
     <div class="card-body">
         <div class="d-flex">
-            <a href="{{ route('users.show', ['name' => $article->user->name]) }}" class="text-dark">
+            <a href="{{ route('users.show', ['name' => $recipe->user->name]) }}" class="text-dark">
                 <i class="fas fa-user-circle fa-3x mr-1"></i>
             </a>
             <div class="ms-3">
                 <div class="fw-bold">
-                    <a href="{{ route('users.show', ['name' => $article->user->name]) }}" class="text-dark">
-                        {{ $article->user->name }}
+                    <a href="{{ route('users.show', ['name' => $recipe->user->name]) }}" class="text-dark">
+                        {{ $recipe->user->name }}
                     </a>
                 </div>
                 <div class="fw-lighter">
-                    {{ $article->created_at->format('Y/m/d H:i') }}
+                    {{ $recipe->created_at->format('Y/m/d H:i') }}
                 </div>
             </div>
 
-            @if (Auth::id() !== $article->user_id)
+            @if (Auth::id() !== $recipe->user_id)
                 <follow-button class="ms-auto"
-                    :initial-is-followed-by='@json($article->user->isFollowedBy(Auth::user()))'
+                    :initial-is-followed-by='@json($recipe->user->isFollowedBy(Auth::user()))'
                     :authorized='@json(Auth::check())'
-                    endpoint="{{ route('users.follow', ['name' => $article->user->name]) }}">
+                    endpoint="{{ route('users.follow', ['name' => $recipe->user->name]) }}">
                 </follow-button>
             @endif
         </div>
@@ -81,11 +81,11 @@
     <img src="https://www.cscassets.com/recipes/wide_cknew/wide_24738.jpg" class="card-img mt-3" alt="recipe image">
     <div class="card-body">
         <p class="card-text mt-3">
-            {!! nl2br(e($article->body)) !!}
+            {!! nl2br(e($recipe->description)) !!}
         </p>
-        @if (count($article->tags) > 0)
+        @if (count($recipe->tags) > 0)
             <label for="">タグ：</label>
-            @foreach ($article->tags as $tag)
+            @foreach ($recipe->tags as $tag)
                 {{-- @if ($loop->first) --}}
                 <a href="{{ route('tags.show', ['name' => $tag->name]) }}" class="border p-1 me-1 mt-1 text-muted">
                     {{ $tag->hashtag }}
@@ -97,11 +97,11 @@
         @endif
     </div>
     <div class="card-footer">
-        <article-like :initial-is-liked-by='@json($article->isLikedBy(Auth::user()))'
-            :initial-count-likes='@json($article->count_likes)' :authorized='@json(Auth::check())'
-            endpoint="{{ route('articles.like', ['article' => $article]) }}">
-        </article-like>
-        <a class="btn btn-info float-end" href="{{ route('articles.show', ['article' => $article]) }}">
+        <recipe-like :initial-is-liked-by='@json($recipe->isLikedBy(Auth::user()))'
+            :initial-count-likes='@json($recipe->count_likes)' :authorized='@json(Auth::check())'
+            endpoint="{{ route('recipes.like', ['recipe' => $recipe]) }}">
+        </recipe-like>
+        <a class="btn btn-info float-end" href="{{ route('recipes.show', ['recipe' => $recipe]) }}">
             続きを読む
             <i class="fas fa-angle-double-right"></i>
         </a>

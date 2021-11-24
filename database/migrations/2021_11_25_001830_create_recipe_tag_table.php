@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFollowsTable extends Migration
+class CreateRecipeTagTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateFollowsTable extends Migration
      */
     public function up()
     {
-        Schema::create('follows', function (Blueprint $table) {
+        Schema::create('recipe_tag', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('follower_id');
-            $table->bigInteger('user_id');
+            $table->bigInteger('recipe_id');
+            $table->bigInteger('tag_id');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateFollowsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('follows');
+        Schema::dropIfExists('recipe_tag');
     }
 }
