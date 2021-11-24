@@ -16,7 +16,7 @@ class CreateArticlesTable extends Migration
         Schema::create('recipes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->text('description');
             $table->bigInteger('user_id');
             $table->timestamps();

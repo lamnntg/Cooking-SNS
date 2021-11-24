@@ -11,5 +11,5 @@
 <div class="form-group mt-3">
     <label>内容</label>
     <textarea name="body" required class="form-control" rows="16"
-        placeholder="本文">{{ $recipe->body ?? old('body') }}</textarea>
+        placeholder="本文">{{ $recipe->description ?? old('description') }}</textarea>
 </div>

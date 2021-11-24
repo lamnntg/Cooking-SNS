@@ -16,9 +16,7 @@ class CreateArticleTagTable extends Migration
         Schema::create('recipe_tag', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('recipe_id');
-
             $table->bigInteger('tag_id');
-
             $table->timestamps();
         });
     }

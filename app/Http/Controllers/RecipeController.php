@@ -6,6 +6,8 @@ use App\Recipe;
 use App\Tag;
 use App\Http\Requests\RecipeRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class RecipeController extends Controller
 {
@@ -33,16 +35,27 @@ class RecipeController extends Controller
         ]);
     }
 
-    public function store(RecipeRequest $request, Recipe $recipe)
+    public function store(RecipeRequest $request)
     {
-        $recipe->fill($request->all());
-        $recipe->user_id = $request->user()->id;
-        $recipe->save();
+        $userId = Auth::user()->id;
 
-        $request->tags->each(function ($tagName) use ($recipe) {
-            $tag = Tag::firstOrCreate(['name' => $tagName]);
-            $recipe->tags()->attach($tag);
-        });
+        // DB::beginTransaction();
+        // try {
+            $recipe = Recipe::create([
+                'user_id' => $userId,
+                'title' => $request->title,
+                'description' => $request->body,
+            ]);
+        // } catch (\Exception $e) {
+        //     DB::rollback();
+        // }
+
+        if ($request->has('tags')) {
+            $request->tags->each(function ($tagName) use ($recipe) {
+                $tag = Tag::firstOrCreate(['name' => $tagName]);
+                $recipe->tags()->attach($tag);
+            });
+        }
 
         return redirect()->route('recipes.index');
     }

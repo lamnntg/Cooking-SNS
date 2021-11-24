@@ -81,7 +81,7 @@
     <img src="https://www.cscassets.com/recipes/wide_cknew/wide_24738.jpg" class="card-img mt-3" alt="recipe image">
     <div class="card-body">
         <p class="card-text mt-3">
-            {!! nl2br(e($recipe->body)) !!}
+            {!! nl2br(e($recipe->description)) !!}
         </p>
         @if (count($recipe->tags) > 0)
             <label for="">タグ：</label>

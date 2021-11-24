@@ -94,7 +94,7 @@
                 alt="recipe image">
             <div class="card-body">
                 <p class="card-text mt-3">
-                    {!! nl2br(e($recipe->body)) !!}
+                    {!! nl2br(e($recipe->description)) !!}
                 </p>
                 @if (count($recipe->tags) > 0)
                     <label for="">タグ：</label>

@@ -8,8 +8,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Recipe extends Model
 {
+    protected $table = 'recipes';
+
     protected $fillable = [
-        'title'
+        'title',
+        'image',
+        'user_id',
+        'image',
+        'description'
     ];
 
     public function user(): BelongsTo
