@@ -17,13 +17,21 @@ class RecipeController extends Controller
         $this->authorizeResource(Recipe::class, 'recipe');
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $userId = Auth::user()->id;
-        $recipes = Recipe::all()->sortByDesc('created_at')
+        $recipesQuery = Recipe::query();
+
+        if ($request->has('search')) {
+            $recipesQuery->where('title', 'like', '%' . $request->get('search') . '%');
+        }
+        $recipes = $recipesQuery->orderBy('created_at', 'desc')->take(20)->get()
             ->load(['user', 'likes', 'tags']);
-        $users = User::where('id', '!=', $userId)->take(10)->get();
-        return view('recipes.index', ['recipes' => $recipes, 'suggest_users' => $users]);
+        $users = User::where('id', '!=', $userId)->take(8)->get();
+
+        return view('recipes.index', [
+            'recipes' => $recipes, 'suggest_users' => $users, 'search' => $request->get('search')
+        ]);
     }
 
     public function create()

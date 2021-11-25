@@ -8,7 +8,7 @@
         <div class="d-flex">
             <div class="p-4 w-100 home-content">
                 <!-- Button trigger modal -->
-                
+
                     <div class="card recipe-card" >
                         <div class="card-body d-flex p-2">
                             <div class="profile-button-in-create-btn p-3">
@@ -29,7 +29,7 @@
                 <!-- Modal -->
                 <div class="modal fade" id="createRecipeModal" tabindex="-1" aria-labelledby="createRecipeModalLabel"
                     aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title fw-bold" id="createRecipeModalLabel">レシピ作成</h5>
@@ -91,3 +91,7 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/app/home.js') }}"></script>
+@endpush
