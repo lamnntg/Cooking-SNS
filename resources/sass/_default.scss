@@ -10,7 +10,7 @@
 }
 
 *, button, input, select, textarea {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'arial', sans-serif;
 }
 
 /* Vars */
@@ -642,8 +642,7 @@ img { max-width: 100%; }
     display: flex;
     flex-direction: column;
     gap: 16px;
-
-    margin: 16px 0 24px;
+    margin: 5px 0 24px;
     padding-left: 4px;
 }
 .side-menu__suggestion {
