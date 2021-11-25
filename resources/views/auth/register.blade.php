@@ -50,7 +50,7 @@
                                         </div>
                                     </div>
                                     <div class="text-center">
-                                    <button class="btn btn-block btn-secondary mb-2" type="submit">ユーザー登録</button>
+                                    <button class="btn register-btn btn-block btn-secondary mb-2" type="submit">ユーザー登録</button>
                                     </div>
                                 </form>
                                 <div class="mt-2 mb-5 text-center">

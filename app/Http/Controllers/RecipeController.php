@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Recipe;
+use App\User;
 use App\Tag;
 use App\Http\Requests\RecipeRequest;
 use Illuminate\Http\Request;
@@ -18,10 +19,11 @@ class RecipeController extends Controller
 
     public function index()
     {
+        $userId = Auth::user()->id;
         $recipes = Recipe::all()->sortByDesc('created_at')
             ->load(['user', 'likes', 'tags']);
-
-        return view('recipes.index', ['recipes' => $recipes]);
+        $users = User::where('id', '!=', $userId)->take(10)->get();
+        return view('recipes.index', ['recipes' => $recipes, 'suggest_users' => $users]);
     }
 
     public function create()

@@ -1,8 +1,8 @@
-<div class="card mt-3">
-    <div class="card-header d-flex">
-        <h3 class="card-title text-capitalize">
+<div class="card mt-3 recipe-card">
+    <div class="card-header d-flex recipe-header">
+        <h4 class="card-title text-capitalize recipe-title">
             {{ $recipe->title }}
-        </h3>
+        </h4>
         @if (Auth::id() === $recipe->user_id)
             <!-- dropdown -->
             <div class="ms-auto card-text">
@@ -56,11 +56,16 @@
     <div class="card-body">
         <div class="d-flex">
             <a href="{{ route('users.show', ['name' => $recipe->user->name]) }}" class="text-dark">
-                <i class="fas fa-user-circle fa-3x mr-1"></i>
+                <div class="profile-button-in-recipe-card">
+                    <div class="profile-button-in-recipe-card__border"></div>
+                    <div class="profile-button-in-recipe-card__picture">
+                        <img src="{{ asset('images/default-user.png') }}" alt="User Picture">
+                    </div>
+                </div>
             </a>
-            <div class="ms-3">
+            <div class="ms-3 p-2">
                 <div class="fw-bold">
-                    <a href="{{ route('users.show', ['name' => $recipe->user->name]) }}" class="text-dark">
+                    <a style="text-decoration: none" href="{{ route('users.show', ['name' => $recipe->user->name]) }}" class="text-dark">
                         {{ $recipe->user->name }}
                     </a>
                 </div>
@@ -69,13 +74,13 @@
                 </div>
             </div>
 
-            @if (Auth::id() !== $recipe->user_id)
+            {{-- @if (Auth::id() !== $recipe->user_id)
                 <follow-button class="ms-auto"
                     :initial-is-followed-by='@json($recipe->user->isFollowedBy(Auth::user()))'
                     :authorized='@json(Auth::check())'
                     endpoint="{{ route('users.follow', ['name' => $recipe->user->name]) }}">
                 </follow-button>
-            @endif
+            @endif --}}
         </div>
     </div>
     <img src="https://www.cscassets.com/recipes/wide_cknew/wide_24738.jpg" class="card-img mt-3" alt="recipe image">
@@ -83,25 +88,25 @@
         <p class="card-text mt-3">
             {!! nl2br(e($recipe->description)) !!}
         </p>
-        @if (count($recipe->tags) > 0)
+        {{-- @if (count($recipe->tags) > 0)
             <label for="">タグ：</label>
             @foreach ($recipe->tags as $tag)
-                {{-- @if ($loop->first) --}}
+                @if ($loop->first)
                 <a href="{{ route('tags.show', ['name' => $tag->name]) }}" class="border p-1 me-1 mt-1 text-muted">
                     {{ $tag->hashtag }}
                 </a>
-                {{-- @endif
+                @endif
                 @if ($loop->last)
-                @endif --}}
+                @endif
             @endforeach
-        @endif
+        @endif --}}
     </div>
     <div class="card-footer">
-        <recipe-like :initial-is-liked-by='@json($recipe->isLikedBy(Auth::user()))'
+        {{-- <recipe-like :initial-is-liked-by='@json($recipe->isLikedBy(Auth::user()))'
             :initial-count-likes='@json($recipe->count_likes)' :authorized='@json(Auth::check())'
             endpoint="{{ route('recipes.like', ['recipe' => $recipe]) }}">
-        </recipe-like>
-        <a class="btn btn-info float-end" href="{{ route('recipes.show', ['recipe' => $recipe]) }}">
+        </recipe-like> --}}
+        <a style="text-decoration: none; color:#000" class="float-end mt-3 mb-3 mr-3" href="{{ route('recipes.show', ['recipe' => $recipe]) }}">
             続きを読む
             <i class="fas fa-angle-double-right"></i>
         </a>

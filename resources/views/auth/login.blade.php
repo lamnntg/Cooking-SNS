@@ -38,7 +38,7 @@
                                         <a href="{{ route('password.request') }}" class="card-text">パスワードを忘れた方</a>
                                     </div> --}}
                                     <div class="text-center">
-                                        <button class="btn btn-block btn-secondary mb-2 " type="submit">ログイン</button>
+                                        <button class="btn login-btn btn-block btn-secondary mb-2 " type="submit">ログイン</button>
                                     </div>
                                 </form>
                                 <div class="mt-2 mb-5 text-center">
