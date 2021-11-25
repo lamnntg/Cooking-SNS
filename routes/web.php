@@ -16,7 +16,7 @@ Route::prefix('register')->name('register.')->group(function () {
     Route::post('/{provider}', 'Auth\RegisterController@registerProviderUser')->name('{provider}');
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'checkstatus'])->group(function () {
     Route::get('/', 'RecipeController@index')->name('recipes.index');
     Route::resource('/recipes', 'RecipeController')->except(['index', 'show']);
     Route::resource('/recipes', 'RecipeController')->only(['show']);
