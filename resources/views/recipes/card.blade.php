@@ -85,7 +85,7 @@
     </div>
     <img src="{{ $recipe->image ?? "https://www.cscassets.com/recipes/wide_cknew/wide_24738.jpg"}}" class="card-img mt-3" alt="recipe image">
     <div class="card-body">
-        <p class="card-text mt-3">
+        <p class="card-text mt-3 recipe-content">
             {!! nl2br(e($recipe->description)) !!}
         </p>
         {{-- @if (count($recipe->tags) > 0)
