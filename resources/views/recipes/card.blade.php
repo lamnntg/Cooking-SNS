@@ -13,7 +13,7 @@
                         </button>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="{{ route('recipes.edit', ['recipe' => $recipe]) }}">
+                        <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editRecipeModal">
                             <i class="fas fa-pen mr-1"></i>記事を更新する
                         </a>
                         <div class="dropdown-divider"></div>
@@ -26,7 +26,30 @@
             </div>
             <!-- dropdown -->
 
-            <!-- modal -->
+            <!-- edit modal -->
+            <div class="modal fade" id="editRecipeModal" tabindex="-1" aria-labelledby="editRecipeModal"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title fw-bold" id="createRecipeModalLabel">レシピ作成</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            @include('error_card_list')
+                            <form method="POST" action="{{ route('recipes.update', ['recipe' => $recipe]) }}">
+                                @method('PATCH')
+                                @include('recipes.form')
+                                <button type="submit" class="btn create-submit-btn float-end mt-3">更新する</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end edit modal -->
+
+            <!-- delete modal -->
             <div id="modal-delete-{{ $recipe->id }}" class="modal fade" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -50,7 +73,7 @@
                     </div>
                 </div>
             </div>
-            <!-- modal -->
+            <!-- delete modal -->
         @endif
     </div>
     <div class="card-body">
@@ -65,7 +88,8 @@
             </a>
             <div class="ms-3 p-2">
                 <div class="fw-bold">
-                    <a style="text-decoration: none" href="{{ route('users.show', ['name' => $recipe->user->name]) }}" class="text-dark">
+                    <a style="text-decoration: none" href="{{ route('users.show', ['name' => $recipe->user->name]) }}"
+                        class="text-dark">
                         {{ $recipe->user->name }}
                     </a>
                 </div>
@@ -83,7 +107,8 @@
             @endif --}}
         </div>
     </div>
-    <img src="{{ $recipe->image ?? "https://www.cscassets.com/recipes/wide_cknew/wide_24738.jpg"}}" class="card-img mt-3" alt="recipe image">
+    <img src="{{ $recipe->image ?? 'https://www.cscassets.com/recipes/wide_cknew/wide_24738.jpg' }}"
+        class="card-img mt-3" alt="recipe image">
     <div class="card-body">
         <p class="card-text mt-3 recipe-content">
             {!! nl2br(e($recipe->description)) !!}
@@ -106,7 +131,8 @@
             :initial-count-likes='@json($recipe->count_likes)' :authorized='@json(Auth::check())'
             endpoint="{{ route('recipes.like', ['recipe' => $recipe]) }}">
         </recipe-like> --}}
-        <a style="text-decoration: none; color:#000" class="float-end mt-3 mb-3 mr-3" href="{{ route('recipes.show', ['recipe' => $recipe]) }}">
+        <a style="text-decoration: none; color:#000" class="float-end mt-3 mb-3 mr-3"
+            href="{{ route('recipes.show', ['recipe' => $recipe]) }}">
             続きを読む
             <i class="fas fa-angle-double-right"></i>
         </a>

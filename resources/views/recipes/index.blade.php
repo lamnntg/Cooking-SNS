@@ -9,24 +9,24 @@
             <div class="p-4 w-100 home-content">
                 <!-- Button trigger modal -->
 
-                    <div class="card recipe-card" >
-                        <div class="card-body d-flex p-2">
-                            <div class="profile-button-in-create-btn p-3">
-                                <div class="profile-button-in-create-btn__border"></div>
-                                <div class="profile-button-in-create-btn__picture">
-                                    <img src="{{ asset('images/default-user.png') }}" alt="User Picture">
-                                </div>
-                            </div>
-                            <div class="w-100 p-2 mt-3">
-                                <button type="button" class="btn create-button mb-3 text-left" data-bs-toggle="modal"
-                                    data-bs-target="#createRecipeModal">
-                                    <span>レシピを共有しますか？ {{ Auth::user()->name }}</span>
-                                </button>
+                <div class="card recipe-card">
+                    <div class="card-body d-flex p-2">
+                        <div class="profile-button-in-create-btn p-3">
+                            <div class="profile-button-in-create-btn__border"></div>
+                            <div class="profile-button-in-create-btn__picture">
+                                <img src="{{ asset('images/default-user.png') }}" alt="User Picture">
                             </div>
                         </div>
+                        <div class="w-100 p-2 mt-3">
+                            <button type="button" class="btn create-button mb-3 text-left" data-bs-toggle="modal"
+                                data-bs-target="#createRecipeModal">
+                                <span>レシピを共有しますか？ {{ Auth::user()->name }}</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Modal -->
+                <!-- Create Modal -->
                 <div class="modal fade" id="createRecipeModal" tabindex="-1" aria-labelledby="createRecipeModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog modal-lg">
@@ -46,6 +46,7 @@
                         </div>
                     </div>
                 </div>
+                <!-- End Create Modal -->
 
                 @foreach ($recipes as $recipe)
                     @include('recipes.card')
