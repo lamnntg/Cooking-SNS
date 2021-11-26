@@ -2,7 +2,7 @@
     <nav class="header__content">
         <div class="header__buttons">
             <a href="/" class="header__home">
-                <img src="{{ asset('images/login.png') }}" style="width: 28px;height: 28px"  alt="">
+                <img src="{{ asset('images/logo.png') }}" style="height: 60px"  alt="">
             </a>
 
         </div>
