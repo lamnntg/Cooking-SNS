@@ -52,12 +52,12 @@ export default {
       this.isSaved ? this.unsave() : this.save();
     },
     async save() {
-      //   const response = await axios.put(this.endpoint);
+      const response = await axios.put(this.endpoint);
 
       this.isSaved = true;
     },
     async unsave() {
-      //   const response = await axios.delete(this.endpoint);
+      const response = await axios.delete(this.endpoint);
 
       this.isSaved = false;
     },

@@ -51,6 +51,7 @@ class RecipeController extends Controller
 
         // DB::beginTransaction();
         // try {
+            // dd($request->hasFile('image'));
             $recipe = Recipe::create([
                 'user_id' => $userId,
                 'title' => $request->title,
@@ -133,6 +134,38 @@ class RecipeController extends Controller
         return [
             'id' => $recipe->id,
             'countLikes' => $recipe->count_likes,
+        ];
+    }
+
+    public function save(Request $request, Recipe $recipe)
+    {
+        $recipe->saves()->detach($request->user()->id);
+        $recipe->saves()->attach($request->user()->id);
+
+        return [
+            'id' => $recipe->id
+        ];
+    }
+
+    public function unSave(Request $request, Recipe $recipe)
+    {
+        $recipe->saves()->detach($request->user()->id);
+
+        return [
+            'id' => $recipe->id,
+        ];
+    }
+
+    public function comment(Request $request, Recipe $recipe)
+    {
+        DB::table('comments')->create([
+            'recipe_id' => $recipe->id,
+            'user_id' => $request->user()->id,
+            'content' => $request->content,
+        ]);
+        
+        return [
+            'id' => $recipe->id,
         ];
     }
 }

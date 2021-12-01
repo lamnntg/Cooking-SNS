@@ -24,6 +24,9 @@ Route::middleware(['auth', 'checkstatus'])->group(function () {
     Route::prefix('recipes')->name('recipes.')->group(function () {
         Route::put('/{recipe}/like', 'RecipeController@like')->name('like');
         Route::delete('/{recipe}/like', 'RecipeController@unlike')->name('unlike');
+        Route::put('/{recipe}/save', 'RecipeController@save')->name('save');
+        Route::delete('/{recipe}/save', 'RecipeController@unSave')->name('unsave');
+        Route::post('/{recipe}/comment', 'RecipeController@Comment')->name('comment');
     });
     Route::get('/tags/{name}', 'TagController@show')->name('tags.show');
 

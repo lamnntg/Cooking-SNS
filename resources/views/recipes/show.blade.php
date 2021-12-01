@@ -115,7 +115,10 @@
                                 </div>
                                 <!-- end delete modal -->
                             @else
-                                <recipe-save class="ms-auto" :authorized='@json(Auth::check())'>
+                                <recipe-save class="ms-auto" 
+                                    :authorized='@json(Auth::check())'
+                                    endpoint="{{ route('recipes.save', ['recipe' => $recipe]) }}"
+                                >
                                 </recipe-save>
                             @endif
                         </div>
@@ -205,7 +208,7 @@
                         </recipe-like>
                         <recipe-comment :initial-is-liked-by='@json($recipe->isLikedBy(Auth::user()))'
                             :initial-count-likes='@json($recipe->count_likes)' :authorized='@json(Auth::check())'
-                            endpoint="{{ route('recipes.like', ['recipe' => $recipe]) }}">
+                            endpoint="{{ route('recipes.comment', ['recipe' => $recipe]) }}">
                         </recipe-comment>
                     </div>
                     {{-- <div class="card-body"> --}}
