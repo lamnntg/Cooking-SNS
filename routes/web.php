@@ -38,6 +38,7 @@ Route::middleware(['auth', 'checkstatus'])->group(function () {
     });
 
     Route::get('/profile', 'UserController@profile')->name('profile.index');
+    Route::get('/profile/edit', 'UserController@edit')->name('profile.edit');
 });
 
 Route::get('/block', function () {

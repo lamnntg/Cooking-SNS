@@ -97,4 +97,9 @@ class UserController extends Controller
     {
         return view('pages.profile.index');
     }
+
+    public function edit()
+    {
+        return view('pages.profile.edit');
+    }
 }
