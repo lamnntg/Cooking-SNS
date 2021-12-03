@@ -95,4 +95,9 @@ class User extends Authenticatable
     {
         return $this->followings->count();
     }
+
+    public function getCountRecipesAttribute(): int
+    {
+        return $this->recipes->count();
+    }
 }

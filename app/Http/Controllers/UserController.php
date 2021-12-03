@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 
 use App\User;
 use Illuminate\Http\Request;
@@ -108,6 +109,8 @@ class UserController extends Controller
      */
     public function profile()
     {
-        return view('pages.profile.index');
+        $userId = Auth::user()->id;
+        $user = User::where('id', $userId)->first();
+        return view('pages.profile.index', ['user' => $user]);
     }
 }
