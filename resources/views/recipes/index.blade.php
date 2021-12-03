@@ -56,8 +56,7 @@
             <div class="p-4 flex-shrink-1">
                 <div class="side-menu__suggestions-section">
                     <div class="side-menu__suggestions-header">
-                        <h2>Suggestions for You</h2>
-                        {{-- <button>See All</button> --}}
+                        <h2>おすすめ</h2>
                     </div>
                     @foreach ($suggest_users as $suggest_user)
                         <div class="side-menu__suggestions-content">
@@ -66,9 +65,15 @@
                                     <img src="{{ asset('images/default-user.png') }}" alt="User Picture">
                                 </a>
                                 <div class="side-menu__suggestion-info">
-                                    <a href="#">{{ $suggest_user->name }}</a>
+                                    <a href="{{ route('users.show', ['name' => $suggest_user->name]) }}">{{ $suggest_user->name }}</a>
                                 </div>
-                                <button class="side-menu__suggestion-button">Follow</button>
+                                @if (Auth::id() !== $suggest_user->id)
+                                <follow-button class="ms-auto"
+                                    :initial-is-followed-by='@json($suggest_user->isFollowedBy(Auth::user()))'
+                                    :authorized='@json(Auth::check())'
+                                    endpoint="{{ route('users.follow', ['name' => $suggest_user->name]) }}">
+                                </follow-button>
+                                @endif
                             </div>
                         </div>
                     @endforeach
@@ -78,10 +83,10 @@
                     <div class="side-menu__footer-links">
                         <ul class="side-menu__footer-list">
                             <li class="side-menu__footer-item">
-                                <a class="side-menu__footer-link" href="#">About</a>
+                                <a class="side-menu__footer-link" href="https://github.com/lamnntg/Cooking-SNS">トリコクック概要</a>
                             </li>
                             <li class="side-menu__footer-item">
-                                <a class="side-menu__footer-link" href="#">Help</a>
+                                <a class="side-menu__footer-link" href="https://github.com/lamnntg/Cooking-SNS">トリコクックに連絡</a>
                             </li>
                         </ul>
                     </div>

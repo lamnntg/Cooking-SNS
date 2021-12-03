@@ -25,9 +25,9 @@
                     </div>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuUser">
-                    <li><a class="dropdown-item "href="/">個人ページ</a></li>
+                    <li><a class="dropdown-item "href="{{ route('users.show', ['name' => Auth::user()->name]) }}">個人ページ</a></li>
                     <li><a class="dropdown-item "
-                            href="{{ route('users.show', ['name' => Auth::user()->name]) }}">プロフィール</a></li>
+                            href="{{ route('profile.index', ['name' => Auth::user()->name]) }}">プロフィール</a></li>
 
                     <li><a class="dropdown-item "href="/">保存したレシピ</a></li>
                     <li><a class="dropdown-item "href="/">管理ページ</a></li>
