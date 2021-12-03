@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 
 use App\User;
 use Illuminate\Http\Request;
@@ -28,6 +29,19 @@ class UserController extends Controller
         $recipes = $user->likes->sortByDesc('created_at');
 
         return view('users.likes', [
+            'user' => $user,
+            'recipes' => $recipes,
+        ]);
+    }
+
+    public function saves(string $name)
+    {
+        $user = User::where('name', $name)->first()
+            ->load(['saves.user', 'saves.saves', 'saves.tags']);
+
+        $recipes = $user->saves->sortByDesc('created_at');
+
+        return view('users.saves', [
             'user' => $user,
             'recipes' => $recipes,
         ]);
@@ -95,7 +109,9 @@ class UserController extends Controller
      */
     public function profile()
     {
-        return view('pages.profile.index');
+        $userId = Auth::user()->id;
+        $user = User::where('id', $userId)->first();
+        return view('pages.profile.index', ['user' => $user]);
     }
 
     public function edit()

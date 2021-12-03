@@ -14,8 +14,8 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    const STATUS_ACTIVE = 1;
-    const STATUS_BLOCK = 0;
+    const STATUS_ACTIVE = 0;
+    const STATUS_BLOCK = 1;
 
     /**
      * The attributes that are mass assignable.
@@ -94,5 +94,10 @@ class User extends Authenticatable
     public function getCountFollowingsAttribute(): int
     {
         return $this->followings->count();
+    }
+
+    public function getCountRecipesAttribute(): int
+    {
+        return $this->recipes->count();
     }
 }
