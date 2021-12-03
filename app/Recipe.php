@@ -14,7 +14,6 @@ class Recipe extends Model
         'title',
         'image',
         'user_id',
-        'image',
         'description'
     ];
 
@@ -31,6 +30,13 @@ class Recipe extends Model
     public function saves(): BelongsToMany
     {
         return $this->belongsToMany('App\User', 'saves')->withTimestamps();
+    }
+
+    public function isSavedBy(?User $user): bool
+    {
+        return $user
+            ? (bool)$this->saves->where('id', $user->id)->count()
+            : false;
     }
 
     public function isLikedBy(?User $user): bool

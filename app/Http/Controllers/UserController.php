@@ -33,6 +33,19 @@ class UserController extends Controller
         ]);
     }
 
+    public function saves(string $name)
+    {
+        $user = User::where('name', $name)->first()
+            ->load(['saves.user', 'saves.saves', 'saves.tags']);
+
+        $recipes = $user->saves->sortByDesc('created_at');
+
+        return view('users.saves', [
+            'user' => $user,
+            'recipes' => $recipes,
+        ]);
+    }
+
     public function followings(string $name)
     {
         $user = User::where('name', $name)->first()
