@@ -11,7 +11,7 @@ $("#comment-submit").click(function(event) {
             if (response) {
                 $("#comment").val("");
                 var newComment = response.result;
-                $("#list_comments").after(newComment);
+                $("#list_comments .comment-list:last-child").after(newComment);
             }
         },
         error: function(error) {
