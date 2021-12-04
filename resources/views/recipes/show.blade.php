@@ -125,9 +125,11 @@
                     :initial-count-likes='@json($recipe->count_likes)' :authorized='@json(Auth::check())'
                     endpoint="{{ route('recipes.like', ['recipe' => $recipe]) }}">
                 </recipe-comment>
-                <recipe-save class="ms-auto" :initial-is-saved='@json($recipe->isSavedBy(Auth::user()))'
-                    :authorized='@json(Auth::check())' endpoint="{{ route('recipes.save', ['recipe' => $recipe]) }}">
-                </recipe-save>
+                @if (Auth::id() !== $recipe->user_id)
+                    <recipe-save class="ms-auto" :initial-is-saved='@json($recipe->isSavedBy(Auth::user()))'
+                        :authorized='@json(Auth::check())' endpoint="{{ route('recipes.save', ['recipe' => $recipe]) }}">
+                    </recipe-save>
+                @endif
             </div>
             {{-- comment list --}}
             @foreach ($recipe->comments as $comment)
@@ -149,16 +151,18 @@
                 </div>
             @endforeach
             {{-- end comment list --}}
-            {{-- <form>
+            <form method="POST" action="{{ route('recipes.comment', ['recipe' => $recipe]) }}">
+                @method('POST')
+                @csrf
                 <div class="comment-box d-flex mt-3">
-                    <input class="recipe-comment" type="text" class="form-control" ref="userComment" id="userComment"
+                    <input class="recipe-comment" name="content" value="" type="text" class="form-control" required ref="userComment" id="userComment"
                         placeholder="コメントをする">
                     <button type="submit" class="comment-btn btn btn-primary btn-lg"><i
                             class="fas fa-paper-plane"></i></button>
                 </div>
-            </form> --}}
-            <comment-box :authorized='@json(Auth::check())' endpoint="{{ route('recipes.comment', ['recipe' => $recipe]) }}"
-            ></comment-box>
+            </form>
+            {{-- <comment-box :authorized='@json(Auth::check())'
+                endpoint="{{ route('recipes.comment', ['recipe' => $recipe]) }}"></comment-box> --}}
         </div>
     </div>
 @endsection

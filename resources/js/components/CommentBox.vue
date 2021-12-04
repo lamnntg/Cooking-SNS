@@ -7,6 +7,7 @@
         ref="userComment"
         id="userComment"
         name="content"
+        required
         v-model="content"
         placeholder="コメントをする"
       />

@@ -49,6 +49,6 @@ Route::get('/block', function () {
     return view('block');
 });
 
-Route::get('/home', function () {
-    return view('home');
-})->name('home');
+// Route::get('/home', function () {
+//     return view('home');
+// })->name('home');
