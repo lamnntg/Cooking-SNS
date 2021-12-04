@@ -1,16 +1,20 @@
 import './bootstrap'
 import Vue from 'vue'
-import ArticleLike from './components/ArticleLike'
-import ArticleSave from './components/ArticleSave'
-import ArticleTagsInput from './components/ArticleTagsInput'
+import RecipeLike from './components/RecipeLike'
+import RecipeComment from './components/RecipeComment'
+import RecipeSave from './components/RecipeSave'
+import RecipeTagsInput from './components/RecipeTagsInput'
 import FollowButton from './components/FollowButton'
+import CommentBox from './components/CommentBox'
 
 const app = new Vue({
     el: '#app',
     components: {
-        ArticleLike,
-        ArticleTagsInput,
-        ArticleSave,
+        RecipeLike,
+        RecipeTagsInput,
+        RecipeSave,
+        RecipeComment,
         FollowButton,
+        CommentBox
     }
 })

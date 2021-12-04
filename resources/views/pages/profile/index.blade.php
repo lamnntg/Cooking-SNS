@@ -1,210 +1,113 @@
 @extends('app')
 
-@section('title', 'Profile')
+@section('title', 'プロフィル')
 
 @section('content')
     @include('layout.header')
-
-    <div class="profile-page">
-        <div class="container profile-content">
-            <div class="profile">
-                <div class="profile-image">
-                    <img src="{{ asset("images/default-user.png") }}"
-                        alt="">
-                </div>
-                <div class="profile-user-settings">
-                    <h3 class="profile-user-name">Lam Tam Nhu</h3>
-                    <button class="btn profile-edit-btn">Edit Profile</button>
-                    <button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog"
-                            aria-hidden="true"></i></button>
-                </div>
-                <div class="profile-stats">
-                    <ul>
-                        <li><span class="profile-stat-count">164</span> posts</li>
-                        <li><span class="profile-stat-count">188</span> followers</li>
-                        <li><span class="profile-stat-count">206</span> following</li>
-                    </ul>
-                </div>
-                <div class="profile-bio">
-                    <p><span class="profile-real-name">Lam Tam Nhu</span> Lorem ipsum dolor sit, amet consectetur
-                        adipisicing elit 📷✈️🏕️</p>
-                </div>
-            </div>
-            <!-- End of profile section -->
+    <div class="container">
+        @include('users.user')
+        <div>
+            <ul class="nav nav-tabs nav-justified mt-3">
+                <li class="nav-item">
+                    <a style="text-decoration: none;" class="text-dark" href="/">
+                        個人情報
+                    </a>
+                </li>
+            </ul>
         </div>
 
-        <div class="container profile-content">
-            <div class="gallery">
-                <div class="gallery-item" tabindex="0">
-                    <img src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?w=500&h=500&fit=crop"
-                        class="gallery-image" alt="">
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i
-                                    class="fas fa-heart" aria-hidden="true"></i> 56</li>
-                            <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i
-                                    class="fas fa-comment" aria-hidden="true"></i> 2</li>
-                        </ul>
+        <div class="d-flex justify-content-center row mt-5">
+            <div class="col-4" style="text-align:center">
+                <img style="width: 200px; height: 200px; object-fit: cover;" src="{{ $user->avatar ?? asset('images/default-user.png') }}"
+                    alt="User Picture">
+            </div>
+            <div class="col-8">
+                <form>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">ニックネーム</label>
+                        <div class="col-10">
+                            <input type="text" readonly class="form-control-plaintext" value={{ $user->name }}>
+                        </div>
                     </div>
-                </div>
-                <div class="gallery-item" tabindex="0">
-                    <img src="https://images.unsplash.com/photo-1497445462247-4330a224fdb1?w=500&h=500&fit=crop"
-                        class="gallery-image" alt="">
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i
-                                    class="fas fa-heart" aria-hidden="true"></i> 89</li>
-                            <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i
-                                    class="fas fa-comment" aria-hidden="true"></i> 5</li>
-                        </ul>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">メール</label>
+                        <div class="col-10">
+                            <input type="text" readonly class="form-control-plaintext" value={{ $user->email }}>
+                        </div>
                     </div>
-                </div>
-                <div class="gallery-item" tabindex="0">
-                    <img src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=500&h=500&fit=crop"
-                        class="gallery-image" alt="">
-                    <div class="gallery-item-type">
-                        <span class="visually-hidden">Gallery</span><i class="fas fa-clone" aria-hidden="true"></i>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">パスワード</label>
+                        <div class="col-10">
+                            <input type="password" readonly class="form-control-plaintext" value="********">
+                        </div>
                     </div>
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i
-                                    class="fas fa-heart" aria-hidden="true"></i> 42</li>
-                            <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i
-                                    class="fas fa-comment" aria-hidden="true"></i> 1</li>
-                        </ul>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <button class="btn btn-outline-secondary mx-auto mt-3" style="width: 200px;" data-bs-toggle="modal"
+                data-bs-target="#editProfileModal"> プロファイル編集 </button>
+        </div>
+        <!-- Edit Profile Modal -->
+        <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title fw-bold" id="editProfileModalLabel">プロファイル編集</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                </div>
-                <div class="gallery-item" tabindex="0">
-                    <img src="https://images.unsplash.com/photo-1502630859934-b3b41d18206c?w=500&h=500&fit=crop"
-                        class="gallery-image" alt="">
-                    <div class="gallery-item-type">
-                        <span class="visually-hidden">Video</span><i class="fas fa-video" aria-hidden="true"></i>
-                    </div>
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i
-                                    class="fas fa-heart" aria-hidden="true"></i> 38</li>
-                            <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i
-                                    class="fas fa-comment" aria-hidden="true"></i> 0</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="gallery-item" tabindex="0">
-                    <img src="https://images.unsplash.com/photo-1498471731312-b6d2b8280c61?w=500&h=500&fit=crop"
-                        class="gallery-image" alt="">
+                    <div class="modal-body">
+                        @include('error_card_list')
 
-                    <div class="gallery-item-type">
-                        <span class="visually-hidden">Gallery</span><i class="fas fa-clone" aria-hidden="true"></i>
-                    </div>
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i
-                                    class="fas fa-heart" aria-hidden="true"></i> 47</li>
-                            <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i
-                                    class="fas fa-comment" aria-hidden="true"></i> 1</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="gallery-item" tabindex="0">
-                    <img src="https://images.unsplash.com/photo-1515023115689-589c33041d3c?w=500&h=500&fit=crop"
-                        class="gallery-image" alt="">
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i
-                                    class="fas fa-heart" aria-hidden="true"></i> 94</li>
-                            <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i
-                                    class="fas fa-comment" aria-hidden="true"></i> 3</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="gallery-item" tabindex="0">
-                    <img src="https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=500&h=500&fit=crop"
-                        class="gallery-image" alt="">
-                    <div class="gallery-item-type">
-                        <span class="visually-hidden">Gallery</span><i class="fas fa-clone" aria-hidden="true"></i>
-                    </div>
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i
-                                    class="fas fa-heart" aria-hidden="true"></i> 52</li>
-                            <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i
-                                    class="fas fa-comment" aria-hidden="true"></i> 4</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="gallery-item" tabindex="0">
-                    <img src="https://images.unsplash.com/photo-1515814472071-4d632dbc5d4a?w=500&h=500&fit=crop"
-                        class="gallery-image" alt="">
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i
-                                    class="fas fa-heart" aria-hidden="true"></i> 66</li>
-                            <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i
-                                    class="fas fa-comment" aria-hidden="true"></i> 2</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="gallery-item" tabindex="0">
-                    <img src="https://images.unsplash.com/photo-1511407397940-d57f68e81203?w=500&h=500&fit=crop"
-                        class="gallery-image" alt="">
-                    <div class="gallery-item-type">
-                        <span class="visually-hidden">Gallery</span><i class="fas fa-clone" aria-hidden="true"></i>
-                    </div>
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i
-                                    class="fas fa-heart" aria-hidden="true"></i> 45</li>
-                            <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i
-                                    class="fas fa-comment" aria-hidden="true"></i> 0</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="gallery-item" tabindex="0">
-                    <img src="https://images.unsplash.com/photo-1518481612222-68bbe828ecd1?w=500&h=500&fit=crop"
-                        class="gallery-image" alt="">
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i
-                                    class="fas fa-heart" aria-hidden="true"></i> 34</li>
-                            <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i
-                                    class="fas fa-comment" aria-hidden="true"></i> 1</li>
-                        </ul>
-                    </div>
-                </div>
+                        <form method="POST" action="{{ route("profile.update") }}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="row d-flex justify-content-center">
+                                <div class="profile-button-in-recipe-card" style="width: 75px">
+                                    <div class="profile-button-in-recipe-card__border"></div>
+                                    <div class="profile-button-in-recipe-card__picture">
+                                        <img id="avatar" type="image" src="{{  $user->avatar ?? asset('images/default-user.png') }}"
+                                            alt="User Picture" width="50px">
+                                        <input id="avatar-input" type="file" name="image"
+                                            accept="image/png, image/gif, image/jpeg" style="display: none;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center mt-3">
+                                アバター編集
+                            </div>
 
-                <div class="gallery-item" tabindex="0">
-                    <img src="https://images.unsplash.com/photo-1505058707965-09a4469a87e4?w=500&h=500&fit=crop"
-                        class="gallery-image" alt="">
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i
-                                    class="fas fa-heart" aria-hidden="true"></i> 41</li>
-                            <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i
-                                    class="fas fa-comment" aria-hidden="true"></i> 0</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="gallery-item" tabindex="0">
-                    <img src="https://images.unsplash.com/photo-1423012373122-fff0a5d28cc9?w=500&h=500&fit=crop"
-                        class="gallery-image" alt="">
-                    <div class="gallery-item-type">
-                        <span class="visually-hidden">Video</span><i class="fas fa-video" aria-hidden="true"></i>
-                    </div>
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i
-                                    class="fas fa-heart" aria-hidden="true"></i> 30</li>
-                            <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i
-                                    class="fas fa-comment" aria-hidden="true"></i> 2</li>
-                        </ul>
+                            <div class="form-group row mt-3">
+                                <label class="col-2 col-form-label">ニックネーム</label>
+                                <div class="col-10">
+                                    <input name="name" type="text" class="form-control" value={{ $user->name }}>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mt-3">
+                                <label class="col-2 col-form-label">メール</label>
+                                <div class="col-10">
+                                    <input type="text" readonly class="form-control" value={{ $user->email }}>
+                                </div>
+                            </div>
+                            <div class="form-group row mt-3">
+                                <label class="col-2 col-form-label">パスワード</label>
+                                <div class="col-10">
+                                    <input name="newPassword" type="password" class="form-control" value="">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn float-end mt-3 btn-outline-secondary">投稿する</button>
+                        </form>
+
                     </div>
                 </div>
             </div>
-            <!-- End of gallery -->
-
-            <div class="loader"></div>
-
         </div>
-        <!-- End of container -->
+        <!-- End Edit Profile Modal -->
     </div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/app/edit.js') }}"></script>
+@endpush

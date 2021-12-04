@@ -55,7 +55,7 @@
     </div>
 
     <div class="posts">
-        <article class="post">
+        <recipe class="post">
             <div class="post__header">
                 <div class="post__profile">
                     <a href="https://github.com/leocosta1" target="_blank" class="post__avatar">
@@ -125,7 +125,7 @@
                     <span class="post__date-time">30 minutes ago</span>
                 </div>
             </div>
-        </article>
+        </recipe>
     </div>
 </div>
 

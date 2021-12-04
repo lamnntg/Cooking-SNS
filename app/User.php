@@ -14,13 +14,17 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    const IMAGE_FOLDER = 'images/users';
+    const STATUS_ACTIVE = 1;
+    const STATUS_BLOCK = 0;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'avatar', 'status'
     ];
 
     /**
@@ -46,24 +50,34 @@ class User extends Authenticatable
         $this->notify(new PasswordResetNotification($token, new BareMail()));
     }
 
-    public function articles(): HasMany
+    public function recipes(): HasMany
     {
-        return $this->hasMany('App\Article');
+        return $this->hasMany('App\Recipe');
     }
 
     public function followers(): BelongsToMany
     {
-        return $this->belongsToMany('App\User', 'follows', 'followee_id', 'follower_id')->withTimestamps();
+        return $this->belongsToMany('App\User', 'follows', 'user_id', 'follower_id')->withTimestamps();
     }
 
     public function followings(): BelongsToMany
     {
-        return $this->belongsToMany('App\User', 'follows', 'follower_id', 'followee_id')->withTimestamps();
+        return $this->belongsToMany('App\User', 'follows', 'follower_id', 'user_id')->withTimestamps();
     }
 
     public function likes(): BelongsToMany
     {
-        return $this->belongsToMany('App\Article', 'likes')->withTimestamps();
+        return $this->belongsToMany('App\Recipe', 'likes')->withTimestamps();
+    }
+
+    public function saves(): BelongsToMany
+    {
+        return $this->belongsToMany('App\Recipe', 'saves')->withTimestamps();
+    }
+
+    public function comments(): BelongsToMany
+    {
+        return $this->belongsToMany('App\Recipe', 'comments')->withTimestamps();
     }
 
     public function isFollowedBy(?User $user): bool
@@ -81,5 +95,10 @@ class User extends Authenticatable
     public function getCountFollowingsAttribute(): int
     {
         return $this->followings->count();
+    }
+
+    public function getCountRecipesAttribute(): int
+    {
+        return $this->recipes->count();
     }
 }
