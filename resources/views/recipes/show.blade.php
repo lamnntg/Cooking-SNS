@@ -14,10 +14,6 @@
                     </a>
                     <div class="ms-3">
                         <div class="fw-bold">
-                            <a href="{{ route('users.show', ['name' => $recipe->user->name]) }}"
-                                class="text-dark text-decoration-none">
-                                {{ $recipe->user->name }}
-                            </a>
                             <div class="ms-3 me-auto">
                                 <div class="fw-bold">
                                     <a href="{{ route('users.show', ['name' => $recipe->user->name]) }}"
@@ -30,14 +26,15 @@
                                 </div>
                             </div>
 
-                            @if (Auth::id() !== $recipe->user_id)
+                            {{-- @if (Auth::id() !== $recipe->user_id)
                                 <follow-button class="ms-auto"
                                     :initial-is-followed-by='@json($recipe->user->isFollowedBy(Auth::user()))'
                                     :authorized='@json(Auth::check())'
                                     endpoint="{{ route('users.follow', ['name' => $recipe->user->name]) }}">
                                 </follow-button>
-                            @endif
-                            @if (Auth::id() === $recipe->user_id)
+                            @endif --}}
+
+                            {{-- @if (Auth::id() === $recipe->user_id)
                                 <!-- dropdown -->
                                 <div class="card-text">
                                     <div class="dropdown">
@@ -120,7 +117,7 @@
                                     endpoint="{{ route('recipes.save', ['recipe' => $recipe]) }}"
                                 >
                                 </recipe-save>
-                            @endif
+                            @endif --}}
                         </div>
                     </div>
 
@@ -232,35 +229,38 @@
                 @endif
             </div>
             {{-- comment list --}}
-            @foreach ($recipe->comments as $comment)
-                <div class="comment-list ms-3">
-                    <div class="comment-item d-flex align-items-start">
-                        <a href="{{ route('users.show', ['name' => $comment->user->name]) }}" class="text-dark">
-                            <i class="fas fa-user-circle fa-2x"></i>
-                        </a>
-                        <div class="ms-2 flex-fill">
-                            <a href="{{ route('users.show', ['name' => $comment->user->name]) }}"
-                                class="text-dark fw-bold text-decoration-none">
-                                {{ $comment->user->name }}
+            <div id="list_comments">
+                @foreach ($comments as $comment)
+                    <div class="comment-list ms-3">
+                        <div class="comment-item d-flex align-items-start">
+                            <a href="{{ route('users.show', ['name' => $comment->user->name]) }}" class="text-dark">
+                                <i class="fas fa-user-circle fa-2x"></i>
                             </a>
-                            <span class="ms-2">
-                                {{ $comment->content }}
-                            </span>
+                            <div class="ms-2 flex-fill">
+                                <a href="{{ route('users.show', ['name' => $comment->user->name]) }}"
+                                    class="text-dark fw-bold text-decoration-none">
+                                    {{ $comment->user->name }}
+                                </a>
+                                <span class="ms-2">
+                                    {{ $comment->content }}
+                                </span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
+
             {{-- end comment list --}}
-            <form method="POST" action="{{ route('recipes.comment', ['recipe' => $recipe]) }}">
+            {{-- <form method="POST" action="{{ route('recipes.comment', ['recipe' => $recipe]) }}">
                 @method('POST')
-                @csrf
-                <div class="comment-box d-flex mt-3">
-                    <input class="recipe-comment" name="content" value="" type="text" class="form-control" required ref="userComment" id="userComment"
-                        placeholder="コメントをする">
-                    <button type="submit" class="comment-btn btn btn-primary btn-lg"><i
-                            class="fas fa-paper-plane"></i></button>
-                </div>
-            </form>
+                @csrf --}}
+            <div class="comment-box d-flex mt-3">
+                <input id="comment" class="recipe-comment" name="content" value="" type="text" class="form-control"
+                    required ref="userComment" id="userComment" placeholder="コメントをする">
+                <button id="comment-submit" type="submit" class="comment-btn btn btn-primary btn-lg"><i
+                        class="fas fa-paper-plane"></i></button>
+            </div>
+            {{-- </form> --}}
             {{-- <comment-box :authorized='@json(Auth::check())'
                 endpoint="{{ route('recipes.comment', ['recipe' => $recipe]) }}"></comment-box> --}}
         </div>
@@ -268,5 +268,10 @@
 @endsection
 
 @push('scripts')
+    <script>
+        var recipeId = @json($recipe->id);
+        var userId = @json(Auth::user()->id);
+    </script>
     <script src="{{ asset('js/app/form.js') }}"></script>
+    <script src="{{ asset('js/app/comment.js') }}"></script>
 @endpush

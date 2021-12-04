@@ -82,7 +82,7 @@
                 <div class="profile-button-in-recipe-card">
                     <div class="profile-button-in-recipe-card__border"></div>
                     <div class="profile-button-in-recipe-card__picture">
-                        <img src="{{ Auth::user()->avatar ?? asset('images/default-user.png') }}" alt="User Picture">
+                        <img src="{{ $recipe->user->avatar ?? asset('images/default-user.png') }}" alt="User Picture">
                     </div>
                 </div>
             </a>
@@ -107,8 +107,12 @@
             @endif --}}
         </div>
     </div>
-    <img src="{{ $recipe->image ?? 'https://www.cscassets.com/recipes/wide_cknew/wide_24738.jpg' }}"
-        class="card-img mt-3" alt="recipe image">
+    <div>
+        @if ($recipe->image !== null)
+            <img src="{{ $recipe->image }}" class="card-img mt-3" alt="recipe image">
+        @endif
+
+    </div>
     <div class="card-body">
         <p class="card-text mt-3 recipe-content">
             {!! nl2br(e($recipe->description)) !!}

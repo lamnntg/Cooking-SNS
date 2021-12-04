@@ -66,7 +66,7 @@
                                 <div class="profile-button-in-recipe-card" style="width: 75px">
                                     <div class="profile-button-in-recipe-card__border"></div>
                                     <div class="profile-button-in-recipe-card__picture">
-                                        <img id="avatar" type="image" src="{{ asset('images/default-user.png') }}"
+                                        <img id="avatar" type="image" src="{{  $user->avatar ?? asset('images/default-user.png') }}"
                                             alt="User Picture" width="50px">
                                         <input id="avatar-input" type="file" name="image"
                                             accept="image/png, image/gif, image/jpeg" style="display: none;">

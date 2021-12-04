@@ -62,7 +62,7 @@
                         <div class="side-menu__suggestions-content">
                             <div class="side-menu__suggestion">
                                 <a href="#" class="side-menu__suggestion-avatar">
-                                    <img src="{{ asset('images/default-user.png') }}" alt="User Picture">
+                                    <img src="{{ $suggest_user->avatar ?? asset('images/default-user.png') }}" alt="User Picture">
                                 </a>
                                 <div class="side-menu__suggestion-info">
                                     <a href="{{ route('users.show', ['name' => $suggest_user->name]) }}">{{ $suggest_user->name }}</a>

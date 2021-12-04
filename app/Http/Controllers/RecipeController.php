@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Follow;
 use App\Recipe;
 use App\User;
@@ -23,7 +24,7 @@ class RecipeController extends Controller
     {
         $userId = Auth::user()->id;
 
-        $recipesQuery = Recipe::query();
+        $recipesQuery = Recipe::where('user_id', '!=', $userId);
 
         if ($request->has('search')) {
             $recipesQuery->where('title', 'like', '%' . $request->get('search') . '%');
@@ -60,17 +61,18 @@ class RecipeController extends Controller
 
         // DB::beginTransaction();
         // try {
+        if ($request->hasFile('image')) {
             $hash = str_replace("/", "", \Hash::make(now()));
-
             $path = sprintf('%s/%s', Recipe::IMAGE_FOLDER, $userId);
             $imagePath = Storage::disk('public')->putFileAs($path, $request->image, $hash . '.png');
+        }
 
-            $recipe = Recipe::create([
-                'user_id' => $userId,
-                'title' => $request->title,
-                'description' => $request->body,
-                'image' => $imagePath ? asset('storage/' . $imagePath) : null,
-            ]);
+        $recipe = Recipe::create([
+            'user_id' => $userId,
+            'title' => $request->title,
+            'description' => $request->body,
+            'image' => isset($imagePath) ? asset('storage/' . $imagePath) : null,
+        ]);
         // } catch (\Exception $e) {
         //     DB::rollback();
         // }
@@ -116,7 +118,7 @@ class RecipeController extends Controller
             $recipe->tags()->attach($tag);
         });
 
-        return redirect()->route('recipes.index');
+        return redirect()->back();
     }
 
     public function destroy(Recipe $recipe)
@@ -127,7 +129,9 @@ class RecipeController extends Controller
 
     public function show(Recipe $recipe)
     {
-        return view('recipes.show', ['recipe' => $recipe]);
+        $comments = Comment::with('user')->where('recipe_id', $recipe->id)->orderBy('created_at', 'desc')->get();
+
+        return view('recipes.show', ['recipe' => $recipe, 'comments' => $comments]);
     }
 
     public function like(Request $request, Recipe $recipe)
@@ -170,16 +174,21 @@ class RecipeController extends Controller
         ];
     }
 
-    public function comment(Request $request, Recipe $recipe)
+    public function comment(Request $request, int $recipeId)
     {
-        DB::table('comments')->create([
-            'recipe_id' => $recipe->id,
-            'user_id' => $request->user()->id,
-            'content' => $request->content,
-        ]);
+        if ($request->ajax()) {
+            $comment = Comment::create([
+                'recipe_id' => $recipeId,
+                'user_id' => Auth::user()->id,
+                'content' => $request->content,
+            ]);
 
-        return [
-            'id' => $recipe->id,
-        ];
+            if ($comment) {
+                $commentView = view('recipes.comment-render', compact('comment'))->render();
+                return response()->json(['result' => $commentView], 200);
+            }
+            
+            return response()->json(['result' => false], 500);
+        }
     }
 }
