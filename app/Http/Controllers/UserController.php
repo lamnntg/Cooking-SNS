@@ -135,7 +135,7 @@ class UserController extends Controller
 
         $newUser = [
             'name' => $request->name ?? $user->name,
-            'password' => $request->password == null ? $user->password : Hash::make($request->newPassword),
+            'password' => $request->newPassword == null ? $user->password : Hash::make($request->newPassword),
             'avatar' => isset($imagePath) ? asset('storage/' . $imagePath) : $user->avatar,
         ];
         //TODO Try catch

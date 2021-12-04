@@ -67,7 +67,13 @@
                                 <div class="side-menu__suggestion-info">
                                     <a href="{{ route('users.show', ['name' => $suggest_user->name]) }}">{{ $suggest_user->name }}</a>
                                 </div>
-                                <button class="side-menu__suggestion-button">フォローする</button>
+                                @if (Auth::id() !== $suggest_user->id)
+                                <follow-button class="ms-auto"
+                                    :initial-is-followed-by='@json($suggest_user->isFollowedBy(Auth::user()))'
+                                    :authorized='@json(Auth::check())'
+                                    endpoint="{{ route('users.follow', ['name' => $suggest_user->name]) }}">
+                                </follow-button>
+                                @endif
                             </div>
                         </div>
                     @endforeach
@@ -77,15 +83,15 @@
                     <div class="side-menu__footer-links">
                         <ul class="side-menu__footer-list">
                             <li class="side-menu__footer-item">
-                                <a class="side-menu__footer-link" href="#">会社情報</a>
+                                <a class="side-menu__footer-link" href="https://github.com/lamnntg/Cooking-SNS">トリコクック概要</a>
                             </li>
                             <li class="side-menu__footer-item">
-                                <a class="side-menu__footer-link" href="#">ヘルプセンター</a>
+                                <a class="side-menu__footer-link" href="https://github.com/lamnntg/Cooking-SNS">トリコクックに連絡</a>
                             </li>
                         </ul>
                     </div>
 
-                    <span class="side-menu__footer-copyright">&copy; 2021 トリコクックチームからのレシピSNS</span>
+                    <span class="side-menu__footer-copyright">&copy; 2021 Recipes SNS from TorikoCookTeam</span>
                 </div>
             </div>
         </div>
