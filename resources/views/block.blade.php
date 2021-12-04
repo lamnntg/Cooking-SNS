@@ -28,11 +28,11 @@
 
     <nav>
         <div class="menu">
-            <p class="website_name">LOGO</p>
+            <p class="website_name">トリコクック</p>
             <div class="menu_links">
-                <a href="" class="link">about</a>
+                <!-- <a href="" class="link">about</a>
                 <a href="" class="link">projects</a>
-                <a href="" class="link">contacts</a>
+                <a href="" class="link">contacts</a> -->
             </div>
             <div class="menu_icon">
                 <span class="icon"></span>
@@ -73,15 +73,14 @@
                     </div>
                 </div>
 
-                <p class="p404" data-depth="0.50">404</p>
-                <p class="p404" data-depth="0.10">404</p>
+                <p class="p404" data-depth="0.50">トリコクック</p>
+                <p class="p404" data-depth="0.10">トリコクック</p>
 
             </div>
 
             <div class="text">
                 <article>
-                    <p>Uh oh! Looks like you got lost. <br>Go back to the homepage if you dare!</p>
-                    <button>i dare!</button>
+                    <p>大変申し訳ございませんでした。あなたはブロクされました。 <br>詳しくは「torikokukku@gmail.com」メールに連絡お願いいたします。</p>
                 </article>
             </div>
 
