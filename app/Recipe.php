@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Recipe extends Model
 {
+    CONST IMAGE_FOLDER = 'images/recipes';
     protected $table = 'recipes';
 
     protected $fillable = [

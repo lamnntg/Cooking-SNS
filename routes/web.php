@@ -41,11 +41,12 @@ Route::middleware(['auth', 'checkstatus'])->group(function () {
     });
 
     Route::get('/profile', 'UserController@profile')->name('profile.index');
+    Route::post('/profile/update', 'UserController@updateProfile')->name('profile.update');
 });
 
-Route::get('/block', function () {
-    return view('block');
-});
+// Route::get('/block', function () {
+//     return view('block');
+// });
 
 Route::get('/home', function () {
     return view('home');

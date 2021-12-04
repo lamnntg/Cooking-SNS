@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Follow;
 use App\Recipe;
 use App\User;
 use App\Tag;
@@ -9,6 +10,7 @@ use App\Http\Requests\RecipeRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class RecipeController extends Controller
 {
@@ -20,6 +22,7 @@ class RecipeController extends Controller
     public function index(Request $request)
     {
         $userId = Auth::user()->id;
+
         $recipesQuery = Recipe::query();
 
         if ($request->has('search')) {
@@ -27,7 +30,13 @@ class RecipeController extends Controller
         }
         $recipes = $recipesQuery->orderBy('created_at', 'desc')->take(20)->get()
             ->load(['user', 'likes', 'tags']);
-        $users = User::where('id', '!=', $userId)->take(8)->get();
+
+        //folow
+        $followedUserId = Follow::where('follower_id', $userId)->pluck('user_id');
+
+        $users = User::where('id', '!=', $userId)
+            ->WhereNotIn('id', $followedUserId)
+            ->take(8)->get();
 
         return view('recipes.index', [
             'recipes' => $recipes, 'suggest_users' => $users, 'search' => $request->get('search')
@@ -51,11 +60,16 @@ class RecipeController extends Controller
 
         // DB::beginTransaction();
         // try {
-            // dd($request->hasFile('image'));
+            $hash = str_replace("/", "", \Hash::make(now()));
+
+            $path = sprintf('%s/%s', Recipe::IMAGE_FOLDER, $userId);
+            $imagePath = Storage::disk('public')->putFileAs($path, $request->image, $hash . '.png');
+
             $recipe = Recipe::create([
                 'user_id' => $userId,
                 'title' => $request->title,
                 'description' => $request->body,
+                'image' => $imagePath ? asset('storage/' . $imagePath) : null,
             ]);
         // } catch (\Exception $e) {
         //     DB::rollback();
@@ -163,7 +177,7 @@ class RecipeController extends Controller
             'user_id' => $request->user()->id,
             'content' => $request->content,
         ]);
-        
+
         return [
             'id' => $recipe->id,
         ];

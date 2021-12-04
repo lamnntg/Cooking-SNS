@@ -115,7 +115,7 @@
                                 </div>
                                 <!-- end delete modal -->
                             @else
-                                <recipe-save class="ms-auto" 
+                                <recipe-save class="ms-auto"
                                     :authorized='@json(Auth::check())'
                                     endpoint="{{ route('recipes.save', ['recipe' => $recipe]) }}"
                                 >
@@ -226,3 +226,7 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/app/form.js') }}"></script>
+@endpush

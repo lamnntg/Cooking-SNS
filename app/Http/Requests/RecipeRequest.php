@@ -25,6 +25,7 @@ class RecipeRequest extends FormRequest
     {
         return [
             'title' => 'required|max:50',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             // 'body' => 'required|max:500',
             // 'tags' => 'json|regex:/^(?!.*\s).+$/u|regex:/^(?!.*\/).*$/u',
         ];

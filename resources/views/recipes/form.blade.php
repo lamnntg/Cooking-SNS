@@ -10,7 +10,9 @@
 </div> --}}
 <div class="form-group mt-3">
     <label>料理の写真</label>
-    <input type="file" name="image" accept="image/png, image/gif, image/jpeg" class="form-control" value="">
+    <input type='button' id='remove' value='remove' class='hide btn btn-danger'/>
+    <img id="canvas_image" class="text-center" src="#" alt="your image" />
+    <input type="file" id="imgInp" name="image" accept="image/png, image/gif, image/jpeg" class="form-control">
 </div>
 <div class="form-group mt-3">
     <label>レシピの内容</label>

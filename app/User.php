@@ -14,6 +14,7 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    const IMAGE_FOLDER = 'images/users';
     const STATUS_ACTIVE = 1;
     const STATUS_BLOCK = 0;
 

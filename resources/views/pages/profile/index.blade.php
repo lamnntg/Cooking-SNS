@@ -18,7 +18,7 @@
 
         <div class="d-flex justify-content-center row mt-5">
             <div class="col-4" style="text-align:center">
-                <img style="width: 200px; height: 200px; object-fit: cover;" src="{{ asset('images/default-user.png') }}"
+                <img style="width: 200px; height: 200px; object-fit: cover;" src="{{ $user->avatar ?? asset('images/default-user.png') }}"
                     alt="User Picture">
             </div>
             <div class="col-8">
@@ -60,30 +60,30 @@
                     <div class="modal-body">
                         @include('error_card_list')
 
-                        <form method="POST" action="">
-
+                        <form method="POST" action="{{ route("profile.update") }}" enctype="multipart/form-data">
+                            @csrf
                             <div class="row d-flex justify-content-center">
                                 <div class="profile-button-in-recipe-card" style="width: 75px">
                                     <div class="profile-button-in-recipe-card__border"></div>
                                     <div class="profile-button-in-recipe-card__picture">
-                                        <img src="{{ asset('images/default-user.png') }}" alt="User Picture">
+                                        <img id="avatar" type="image" src="{{ asset('images/default-user.png') }}"
+                                            alt="User Picture" width="50px">
+                                        <input id="avatar-input" type="file" name="image"
+                                            accept="image/png, image/gif, image/jpeg" style="display: none;">
                                     </div>
                                 </div>
                             </div>
-
                             <div class="d-flex justify-content-center mt-3">
                                 アバター編集
-                            </div>
-                            <div class="form-group mt-3">
-                                <input type="file" hidden name="image" accept="image/png, image/gif, image/jpeg" class="form-control" value="">
                             </div>
 
                             <div class="form-group row mt-3">
                                 <label class="col-2 col-form-label">ニックネーム</label>
                                 <div class="col-10">
-                                    <input type="text" class="form-control" value={{ $user->name }}>
+                                    <input name="name" type="text" class="form-control" value={{ $user->name }}>
                                 </div>
                             </div>
+
                             <div class="form-group row mt-3">
                                 <label class="col-2 col-form-label">メール</label>
                                 <div class="col-10">
@@ -93,10 +93,10 @@
                             <div class="form-group row mt-3">
                                 <label class="col-2 col-form-label">パスワード</label>
                                 <div class="col-10">
-                                    <input type="password" class="form-control" value="">
+                                    <input name="newPassword" type="password" class="form-control" value="">
                                 </div>
                             </div>
-                            
+
                             <button type="submit" class="btn float-end mt-3 btn-outline-secondary">投稿する</button>
                         </form>
 
@@ -107,3 +107,7 @@
         <!-- End Edit Profile Modal -->
     </div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/app/edit.js') }}"></script>
+@endpush

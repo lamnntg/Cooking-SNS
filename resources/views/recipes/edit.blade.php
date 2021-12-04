@@ -22,3 +22,7 @@
     </div>
   </div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/app/form.js') }}"></script>
+@endpush

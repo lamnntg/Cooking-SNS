@@ -23,3 +23,7 @@
     </div>
   </div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/app/home.js') }}"></script>
+@endpush

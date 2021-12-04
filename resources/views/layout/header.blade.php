@@ -21,7 +21,7 @@
                 <button class="profile-button" id="dropdownMenuUser" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="profile-button__border"></div>
                     <div class="profile-button__picture">
-                        <img src="{{ asset('images/default-user.png') }}" alt="User Picture">
+                        <img src="{{ Auth::user()->avatar ?? asset('images/default-user.png') }}" alt="User Picture">
                     </div>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuUser">

@@ -14,7 +14,7 @@
                         <div class="profile-button-in-create-btn p-3">
                             <div class="profile-button-in-create-btn__border"></div>
                             <div class="profile-button-in-create-btn__picture">
-                                <img src="{{ asset('images/default-user.png') }}" alt="User Picture">
+                                <img src="{{ Auth::user()->avatar ?? asset('images/default-user.png') }}" alt="User Picture">
                             </div>
                         </div>
                         <div class="w-100 p-2 mt-3">
@@ -38,7 +38,7 @@
                             </div>
                             <div class="modal-body">
                                 @include('error_card_list')
-                                <form method="POST" action="{{ route('recipes.store') }}">
+                                <form method="POST" action="{{ route('recipes.store') }}" enctype="multipart/form-data">
                                     @include('recipes.form')
                                     <button type="submit" class="btn create-submit-btn float-end mt-3">投稿する</button>
                                 </form>
@@ -100,4 +100,5 @@
 
 @push('scripts')
     <script src="{{ asset('js/app/home.js') }}"></script>
+    <script src="{{ asset('js/app/form.js') }}"></script>
 @endpush

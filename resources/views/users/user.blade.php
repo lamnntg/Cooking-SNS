@@ -7,7 +7,7 @@
                         <div class="profile-button-in-recipe-card">
                             <div class="profile-button-in-recipe-card__border"></div>
                             <div class="profile-button-in-recipe-card__picture">
-                                <img src="{{ asset('images/default-user.png') }}" alt="User Picture">
+                                <img src="{{ $user->avatar ?? asset('images/default-user.png') }}" alt="User Picture">
                             </div>
                         </div>
                     </a>
