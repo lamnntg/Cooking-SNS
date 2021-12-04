@@ -11,7 +11,9 @@
   </div>
 </template>
 
-<script>
+<script>import axios from "axios";
+
+
 export default {
   props: {
     initialIsSaved: {
@@ -22,9 +24,9 @@ export default {
       type: Boolean,
       default: false,
     },
-    // endpoint: {
-    //   type: String,
-    // },
+    endpoint: {
+      type: String,
+    },
   },
   data() {
     return {
@@ -53,7 +55,7 @@ export default {
     },
     async save() {
       const response = await axios.put(this.endpoint);
-
+      
       this.isSaved = true;
     },
     async unsave() {

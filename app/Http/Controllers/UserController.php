@@ -113,4 +113,9 @@ class UserController extends Controller
         $user = User::where('id', $userId)->first();
         return view('pages.profile.index', ['user' => $user]);
     }
+
+    public function edit()
+    {
+        return view('pages.profile.edit');
+    }
 }
