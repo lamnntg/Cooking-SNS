@@ -3,7 +3,7 @@
 @section('title', $user->name . 'のいいねした記事')
 
 @section('content')
-  @include('nav')
+  {{-- @include('nav') --}}
   <div class="container">
     @include('users.user')
     @include('users.tabs', ['hasRecipes' => false, 'hasLikes' => true])
