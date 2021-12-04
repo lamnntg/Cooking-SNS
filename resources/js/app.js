@@ -5,6 +5,7 @@ import RecipeComment from './components/RecipeComment'
 import RecipeSave from './components/RecipeSave'
 import RecipeTagsInput from './components/RecipeTagsInput'
 import FollowButton from './components/FollowButton'
+import CommentBox from './components/CommentBox'
 
 const app = new Vue({
     el: '#app',
@@ -14,5 +15,6 @@ const app = new Vue({
         RecipeSave,
         RecipeComment,
         FollowButton,
+        CommentBox
     }
 })

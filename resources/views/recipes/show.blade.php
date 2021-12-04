@@ -30,10 +30,9 @@
                             :authorized='@json(Auth::check())'
                             endpoint="{{ route('users.follow', ['name' => $recipe->user->name]) }}">
                         </follow-button>
-                    @endif
-                    @if (Auth::id() === $recipe->user_id)
+                    @else
                         <!-- dropdown -->
-                        <div class="card-text">
+                        <div class="card-text ms-auto">
                             <div class="dropdown">
                                 <a data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <button type="button" class="btn btn-link text-muted m-0 p-2">
@@ -126,81 +125,40 @@
                     :initial-count-likes='@json($recipe->count_likes)' :authorized='@json(Auth::check())'
                     endpoint="{{ route('recipes.like', ['recipe' => $recipe]) }}">
                 </recipe-comment>
-                <recipe-save class="ms-auto" :authorized='@json(Auth::check())'>
+                <recipe-save class="ms-auto" :initial-is-saved='@json($recipe->isSavedBy(Auth::user()))'
+                    :authorized='@json(Auth::check())' endpoint="{{ route('recipes.save', ['recipe' => $recipe]) }}">
                 </recipe-save>
             </div>
             {{-- comment list --}}
-            <div class="comment-list ms-3">
-                <div class="comment-item d-flex align-items-start">
-                    <a href="{{ route('users.show', ['name' => $recipe->user->name]) }}" class="text-dark">
-                        <i class="fas fa-user-circle fa-2x"></i>
-                    </a>
-                    <div class="ms-2 flex-fill">
-                        <a href="{{ route('users.show', ['name' => $recipe->user->name]) }}"
-                            class="text-dark fw-bold text-decoration-none">
-                            {{ $recipe->user->name }}
+            @foreach ($recipe->comments as $comment)
+                <div class="comment-list ms-3">
+                    <div class="comment-item d-flex align-items-start">
+                        <a href="{{ route('users.show', ['name' => $comment->user->name]) }}" class="text-dark">
+                            <i class="fas fa-user-circle fa-2x"></i>
                         </a>
-                        <span class="ms-2">ii desune</span>
+                        <div class="ms-2 flex-fill">
+                            <a href="{{ route('users.show', ['name' => $comment->user->name]) }}"
+                                class="text-dark fw-bold text-decoration-none">
+                                {{ $comment->user->name }}
+                            </a>
+                            <span class="ms-2">
+                                {{ $comment->content }}
+                            </span>
+                        </div>
                     </div>
                 </div>
-                <div class="comment-item d-flex align-items-start">
-                    <a href="{{ route('users.show', ['name' => $recipe->user->name]) }}" class="text-dark">
-                        <i class="fas fa-user-circle fa-2x"></i>
-                    </a>
-                    <div class="ms-2 flex-fill">
-                        <a href="{{ route('users.show', ['name' => $recipe->user->name]) }}"
-                            class="text-dark fw-bold text-decoration-none">
-                            {{ $recipe->user->name }}
-                        </a>
-                        <span class="ms-2">ii desune</span>
-                    </div>
-                </div>
-                <div class="comment-item d-flex align-items-start">
-                    <a href="{{ route('users.show', ['name' => $recipe->user->name]) }}" class="text-dark">
-                        <i class="fas fa-user-circle fa-2x"></i>
-                    </a>
-                    <div class="ms-2 flex-fill">
-                        <a href="{{ route('users.show', ['name' => $recipe->user->name]) }}"
-                            class="text-dark fw-bold text-decoration-none">
-                            {{ $recipe->user->name }}
-                        </a>
-                        <span class="ms-2">ii desune</span>
-                    </div>
-                </div>
-                <div class="comment-item d-flex align-items-start">
-                    <a href="{{ route('users.show', ['name' => $recipe->user->name]) }}" class="text-dark">
-                        <i class="fas fa-user-circle fa-2x"></i>
-                    </a>
-                    <div class="ms-2 flex-fill">
-                        <a href="{{ route('users.show', ['name' => $recipe->user->name]) }}"
-                            class="text-dark fw-bold text-decoration-none">
-                            {{ $recipe->user->name }}
-                        </a>
-                        <span class="ms-2">ii desune</span>
-                    </div>
-                </div>
-                <div class="comment-item d-flex align-items-start">
-                    <a href="{{ route('users.show', ['name' => $recipe->user->name]) }}" class="text-dark">
-                        <i class="fas fa-user-circle fa-2x"></i>
-                    </a>
-                    <div class="ms-2 flex-fill">
-                        <a href="{{ route('users.show', ['name' => $recipe->user->name]) }}"
-                            class="text-dark fw-bold text-decoration-none">
-                            {{ $recipe->user->name }}
-                        </a>
-                        <span class="ms-2">ii desune</span>
-                    </div>
-                </div>
-            </div>
+            @endforeach
             {{-- end comment list --}}
-            <form>
-                <div class="comment-box d-flex">
+            {{-- <form>
+                <div class="comment-box d-flex mt-3">
                     <input class="recipe-comment" type="text" class="form-control" ref="userComment" id="userComment"
                         placeholder="コメントをする">
                     <button type="submit" class="comment-btn btn btn-primary btn-lg"><i
                             class="fas fa-paper-plane"></i></button>
                 </div>
-            </form>
+            </form> --}}
+            <comment-box :authorized='@json(Auth::check())' endpoint="{{ route('recipes.comment', ['recipe' => $recipe]) }}"
+            ></comment-box>
         </div>
     </div>
 @endsection

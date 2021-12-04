@@ -35,6 +35,7 @@ Route::middleware(['auth', 'checkstatus'])->group(function () {
         Route::get('/{name}/likes', 'UserController@likes')->name('likes');
         Route::get('/{name}/followings', 'UserController@followings')->name('followings');
         Route::get('/{name}/followers', 'UserController@followers')->name('followers');
+        Route::get('/{name}/saves', 'UserController@saves')->name('saves');
         //follow
         Route::put('/{name}/follow', 'UserController@follow')->name('follow');
         Route::delete('/{name}/follow', 'UserController@unfollow')->name('unfollow');
