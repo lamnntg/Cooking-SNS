@@ -75,7 +75,7 @@ class RecipeController extends Controller
             'user_id' => $userId,
             'title' => $request->title,
             'description' => $request->body,
-            'image' => $imageCode ?? null,
+            'image' => $imagePath ?? null,
         ]);
         // } catch (\Exception $e) {
         //     DB::rollback();
@@ -112,15 +112,17 @@ class RecipeController extends Controller
     {
         //TODO: check if update fail
         if ($request->hasFile('image')) {
-            $hash = str_replace("/", "", Hash::make(now()));
-            $path = sprintf('%s/%s', Recipe::IMAGE_FOLDER, Auth::user()->id);
-            $imagePath = Storage::disk('public')->putFileAs($path, $request->image, $hash . '.png');
+            $image = base64_encode(file_get_contents($request->image));
+            $imagePath = 'data:image/png;base64, ' . ' ' . $image;
+            // $hash = str_replace("/", "", Hash::make(now()));
+            // $path = sprintf('%s/%s', Recipe::IMAGE_FOLDER, Auth::user()->id);
+            // $imagePath = Storage::disk('public')->putFileAs($path, $request->image, $hash . '.png');
         }
 
         $recipe->update([
             'title' => $request->title,
             'description' => $request->body,
-            'image' => isset($imagePath) ? asset('storage/' . $imagePath) : $recipe->image,
+            'image' => isset($imagePath) ? $imagePath : $recipe->image,
         ]);
 
         $recipe->tags()->detach();
