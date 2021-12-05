@@ -62,16 +62,19 @@ class RecipeController extends Controller
         // DB::beginTransaction();
         // try {
         if ($request->hasFile('image')) {
-            $hash = str_replace("/", "", \Hash::make(now()));
-            $path = sprintf('%s/%s', Recipe::IMAGE_FOLDER, $userId);
-            $imagePath = Storage::disk('public')->putFileAs($path, $request->image, $hash . '.png');
+            $image = base64_encode(file_get_contents($request->image));
+            $imagePath = 'data:image/png;base64, ' . ' ' . $image;
+            // dd($imageCode);
+            // $hash = str_replace("/", "", \Hash::make(now()));
+            // $path = sprintf('%s/%s', Recipe::IMAGE_FOLDER, $userId);
+            // $imagePath = Storage::disk('public')->putFileAs($path, $request->image, $hash . '.png');
         }
 
         $recipe = Recipe::create([
             'user_id' => $userId,
             'title' => $request->title,
             'description' => $request->body,
-            'image' => isset($imagePath) ? asset('storage/' . $imagePath) : null,
+            'image' => $imageCode ?? null,
         ]);
         // } catch (\Exception $e) {
         //     DB::rollback();
@@ -187,7 +190,7 @@ class RecipeController extends Controller
                 $commentView = view('recipes.comment-render', compact('comment'))->render();
                 return response()->json(['result' => $commentView], 200);
             }
-            
+
             return response()->json(['result' => false], 500);
         }
     }
