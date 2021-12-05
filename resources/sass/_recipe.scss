@@ -89,7 +89,8 @@
 }
 
 .recipe-img {
-    object-fit: cover;
+    max-height: 512px;
+    object-fit: contain;
 }
 
 .comment-box {
@@ -104,4 +105,9 @@
     border-radius: 0;
     color: #0d6efd;
     background-color: #fff;
+}
+
+.recipe-image{
+    max-height: 512px;
+    object-fit: contain;
 }

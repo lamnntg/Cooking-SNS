@@ -1,6 +1,6 @@
 <template>
   <div class="d-inline-block">
-    <button
+    <!-- <button
       type="button"
       class="btn m-0 p-1 shadow-none"
     >
@@ -9,7 +9,7 @@
          @click="clickLike"
       />
     </button>
-    {{ countLikes }}
+    {{ countLikes }} -->
   </div>
 </template>
 

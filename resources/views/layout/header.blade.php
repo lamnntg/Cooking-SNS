@@ -30,7 +30,7 @@
                             href="{{ route('profile.index', ['name' => Auth::user()->name]) }}">プロフィール</a></li>
 
                     <li><a class="dropdown-item "href="{{ route('users.saves', ['name' => Auth::user()->name]) }}">保存したレシピ</a></li>
-                    <li><a class="dropdown-item "href="/">管理ページ</a></li>
+                    {{-- <li><a class="dropdown-item "href="/">管理ページ</a></li> --}}
 
                     @if (Auth::check())
                         <form method="POST" id="form-logout" action="{{ route('logout') }}">

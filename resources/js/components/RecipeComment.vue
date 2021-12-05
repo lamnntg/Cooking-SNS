@@ -1,9 +1,9 @@
 <template>
   <div class="d-inline-block">
-    <button type="button" class="btn m-0 p-1 shadow-none">
+    <!-- <button type="button" class="btn m-0 p-1 shadow-none">
       <i class="far fa-comment" @click="clickComment" />
     </button>
-    {{ countComments }}
+    {{ countComments }} -->
   </div>
 </template>
 
