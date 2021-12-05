@@ -11,6 +11,7 @@ use App\Http\Requests\RecipeRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class RecipeController extends Controller
@@ -110,9 +111,16 @@ class RecipeController extends Controller
     public function update(RecipeRequest $request, Recipe $recipe)
     {
         //TODO: check if update fail
+        if ($request->hasFile('image')) {
+            $hash = str_replace("/", "", Hash::make(now()));
+            $path = sprintf('%s/%s', Recipe::IMAGE_FOLDER, Auth::user()->id);
+            $imagePath = Storage::disk('public')->putFileAs($path, $request->image, $hash . '.png');
+        }
+
         $recipe->update([
             'title' => $request->title,
             'description' => $request->body,
+            'image' => isset($imagePath) ? asset('storage/' . $imagePath) : $recipe->image,
         ]);
 
         $recipe->tags()->detach();

@@ -10,9 +10,15 @@
 </div> --}}
 <div class="form-group mt-3">
     <label>料理の写真</label>
-    <input type='button' id='remove' value='remove' class='hide btn btn-danger'/>
-    <img id="canvas_image" class="text-center" src="#" alt="your image" />
-    <input type="file" id="imgInp" name="image" accept="image/png, image/gif, image/jpeg" class="form-control">
+    @if (isset($is_edit))
+        <input type="file" id="imgInp" name="image" accept="image/png, image/gif, image/jpeg" class="form-control">
+        <p style="color:red">Upload if you want to change a new photo.</p>
+    @else
+        <input type='button' id='remove' value='remove' class='hide btn btn-danger' />
+        <img id="canvas_image" class="text-center" src="#" alt="your image" />
+        <input type="file" id="imgInp" name="image" accept="image/png, image/gif, image/jpeg" class="form-control">
+    @endif
+
 </div>
 <div class="form-group mt-3">
     <label>レシピの内容</label>

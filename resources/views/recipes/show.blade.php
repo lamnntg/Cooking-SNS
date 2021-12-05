@@ -10,7 +10,9 @@
             <div class="card-body border-bottom">
                 <div class="d-flex">
                     <a href="{{ route('users.show', ['name' => $recipe->user->name]) }}" class="text-dark">
-                        <i class="fas fa-user-circle fa-3x mr-1"></i>
+                        <div class="profile-button-in-recipe-card__picture">
+                            <img src="{{ $recipe->user->avatar ?? asset('images/default-user.png') }}" alt="User Picture">
+                        </div>
                     </a>
                     <div class="ms-3">
                         <div class="fw-bold">
@@ -162,9 +164,9 @@
                                     </div>
                                     <div class="modal-body">
                                         @include('error_card_list')
-                                        <form method="POST" action="{{ route('recipes.update', ['recipe' => $recipe]) }}">
+                                        <form method="POST" action="{{ route('recipes.update', ['recipe' => $recipe]) }}" enctype="multipart/form-data">
                                             @method('PATCH')
-                                            @include('recipes.form')
+                                            @include('recipes.form', ['is_edit' => true])
                                             <button type="submit" class="btn create-submit-btn float-end mt-3">更新する</button>
                                         </form>
                                     </div>
@@ -202,8 +204,10 @@
                     @endif
                 </div>
             </div>
-            <img src="https://static.salekit.vn/image/site/2120/blogs/nha-hang-the-pizza.jpg" class="card-img recipe-img"
-                alt="recipe image">
+            @if ($recipe->image !== null)
+                <img src="{{ $recipe->image }}" class="card-img recipe-img" alt="recipe image">
+            @endif
+
             <div class="card-body recipe-card-content">
                 <h2 class="card-title font-monospace fs-2 fw-bold text-uppercase">
                     {{ $recipe->title }}

@@ -38,9 +38,9 @@
                         </div>
                         <div class="modal-body">
                             @include('error_card_list')
-                            <form method="POST" action="{{ route('recipes.update', ['recipe' => $recipe]) }}">
+                            <form method="POST" action="{{ route('recipes.update', ['recipe' => $recipe]) }}" enctype="multipart/form-data">
                                 @method('PATCH')
-                                @include('recipes.form')
+                                @include('recipes.form', ['is_edit' => true])
                                 <button type="submit" class="btn create-submit-btn float-end mt-3">更新する</button>
                             </form>
                         </div>
