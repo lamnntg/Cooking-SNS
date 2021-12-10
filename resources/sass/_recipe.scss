@@ -20,6 +20,23 @@
     height: 50px;
 }
 
+.profile-button-in-comment-card {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    height: 30px;
+}
+
+.profile-button-in-comment-card__picture {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+}
+
 .profile-button-in-recipe-card__border {
     display: none;
     width: 50px;
