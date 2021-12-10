@@ -12,11 +12,11 @@
     <label>料理の写真</label>
     @if (isset($is_edit))
         <input type="file" id="imgInp" name="image" accept="image/png, image/gif, image/jpeg" class="form-control">
-        <p style="color:red">Upload if you want to change a new photo.</p>
+        <p style="color:red">新しい写真を変更したい場合はアップロードしてください。</p>
     @else
         <input type='button' id='remove' value='remove' class='hide btn btn-danger' />
         <img id="canvas_image" class="text-center" src="#" alt="your image" />
-        <input type="file" id="imgInp" name="image" accept="image/png, image/gif, image/jpeg" class="form-control">
+        @include('recipes.image-upload')
     @endif
 
 </div>
