@@ -25,13 +25,14 @@ class RecipeController extends Controller
     {
         $userId = Auth::user()->id;
 
-        $recipesQuery = Recipe::where('user_id', '!=', $userId);
+        $recipesQuery = Recipe::with(['user', 'tags', 'comments'])
+            ->where('user_id', '!=', $userId)
+            ->orderBy('created_at', 'desc');
 
         if ($request->has('search')) {
             $recipesQuery->where('title', 'like', '%' . $request->get('search') . '%');
         }
-        $recipes = $recipesQuery->orderBy('created_at', 'desc')->take(20)->get()
-            ->load(['user', 'likes', 'tags']);
+        $recipes = $recipesQuery->paginate(3);
 
         //folow
         $followedUserId = Follow::where('follower_id', $userId)->pluck('user_id');
