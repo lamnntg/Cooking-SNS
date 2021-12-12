@@ -32,7 +32,7 @@ class RecipeController extends Controller
         if ($request->has('search')) {
             $recipesQuery->where('title', 'like', '%' . $request->get('search') . '%');
         }
-        $recipes = $recipesQuery->paginate(3);
+        $recipes = $recipesQuery->paginate(5);
 
         //folow
         $followedUserId = Follow::where('follower_id', $userId)->pluck('user_id');

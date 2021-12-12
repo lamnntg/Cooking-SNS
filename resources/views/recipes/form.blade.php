@@ -12,7 +12,7 @@
     <label>料理の写真</label>
     @if (isset($is_edit))
         @include('recipes.image-upload')
-        <p style="color:red">新しい写真を変更したい場合はアップロードしてください。</p>
+        <p id="messageInp" style="color:red">新しい写真を変更したい場合はアップロードしてください。</p>
     @else
         <input type='button' id='remove' value='remove' class='hide btn btn-danger' />
         <img id="canvas_image" class="text-center" src="#" alt="your image" />

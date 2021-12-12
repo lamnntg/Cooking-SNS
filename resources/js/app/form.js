@@ -33,4 +33,11 @@ $("#remove").click(function() {
         "src",
         "http://upload.wikimedia.org/wikipedia/commons/thumb/4/40/No_pub.svg/150px-No_pub.svg.png"
     );
+    $('#labelInp').show("slow");
+});
+
+$('#imgInp').change(function() {
+    var filename = $('#imgInp').val();
+    $('#labelInp').hide("slow");
+    $('#messageInp').text(`新しいファイル : ${filename}`);
 });

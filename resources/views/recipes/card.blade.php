@@ -4,7 +4,7 @@
             {{ $recipe->title }}
         </h4>
         @if (Auth::id() === $recipe->user_id)
-            <!-- dropdown -->
+            {{-- <!-- dropdown -->
             <div class="ms-auto card-text">
                 <div class="dropdown">
                     <a data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -73,7 +73,7 @@
                     </div>
                 </div>
             </div>
-            <!-- delete modal -->
+            <!-- delete modal --> --}}
         @endif
     </div>
     <div class="card-body">
