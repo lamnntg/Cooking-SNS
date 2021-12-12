@@ -11,7 +11,7 @@
 <div class="form-group mt-3">
     <label>料理の写真</label>
     @if (isset($is_edit))
-        <input type="file" id="imgInp" name="image" accept="image/png, image/gif, image/jpeg" class="form-control">
+        @include('recipes.image-upload')
         <p style="color:red">新しい写真を変更したい場合はアップロードしてください。</p>
     @else
         <input type='button' id='remove' value='remove' class='hide btn btn-danger' />
