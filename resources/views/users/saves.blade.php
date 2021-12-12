@@ -46,8 +46,10 @@
                         </div>
                     </div>
                 </div>
-                <img src="{{ $recipe->image }}"
-                    class="card-img mt-3" alt="recipe image">
+                @if ($recipe->image)
+                    <img src="{{ $recipe->image }}"
+                        class="card-img mt-3" alt="recipe image">
+                @endif
                 <div class="card-body">
                     <p class="card-text mt-3 recipe-content">
                         {!! nl2br(e($recipe->description)) !!}

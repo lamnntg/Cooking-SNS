@@ -107,9 +107,9 @@
             @endif --}}
         </div>
     </div>
-    <div>
+    <div class="d-flex justify-content-center">
         @if ($recipe->image !== null)
-            <img src="{{ $recipe->image }}" class="card-img mt-3" alt="recipe image">
+            <img src="{{ $recipe->image }}" class="card-img mt-3 recipe-image" alt="recipe image">
         @endif
 
     </div>

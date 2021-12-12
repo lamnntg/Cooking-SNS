@@ -52,6 +52,9 @@
                     @include('recipes.card')
                 @endforeach
 
+                <div class="d-flex justify-content-center pt-5">
+                    {{ $recipes->links() }}
+                </div>
             </div>
             <div class="p-4 flex-shrink-1">
                 <div class="side-menu__suggestions-section">

@@ -25,13 +25,14 @@ class RecipeController extends Controller
     {
         $userId = Auth::user()->id;
 
-        $recipesQuery = Recipe::where('user_id', '!=', $userId);
+        $recipesQuery = Recipe::with(['user', 'tags', 'comments'])
+            ->where('user_id', '!=', $userId)
+            ->orderBy('created_at', 'desc');
 
         if ($request->has('search')) {
             $recipesQuery->where('title', 'like', '%' . $request->get('search') . '%');
         }
-        $recipes = $recipesQuery->orderBy('created_at', 'desc')->take(20)->get()
-            ->load(['user', 'likes', 'tags']);
+        $recipes = $recipesQuery->paginate(3);
 
         //folow
         $followedUserId = Follow::where('follower_id', $userId)->pluck('user_id');
@@ -63,16 +64,19 @@ class RecipeController extends Controller
         // DB::beginTransaction();
         // try {
         if ($request->hasFile('image')) {
-            $hash = str_replace("/", "", \Hash::make(now()));
-            $path = sprintf('%s/%s', Recipe::IMAGE_FOLDER, $userId);
-            $imagePath = Storage::disk('public')->putFileAs($path, $request->image, $hash . '.png');
+            $image = base64_encode(file_get_contents($request->image));
+            $imagePath = 'data:image/png;base64, ' . ' ' . $image;
+            // dd($imageCode);
+            // $hash = str_replace("/", "", \Hash::make(now()));
+            // $path = sprintf('%s/%s', Recipe::IMAGE_FOLDER, $userId);
+            // $imagePath = Storage::disk('public')->putFileAs($path, $request->image, $hash . '.png');
         }
 
         $recipe = Recipe::create([
             'user_id' => $userId,
             'title' => $request->title,
             'description' => $request->body,
-            'image' => isset($imagePath) ? asset('storage/' . $imagePath) : null,
+            'image' => $imagePath ?? null,
         ]);
         // } catch (\Exception $e) {
         //     DB::rollback();
@@ -109,15 +113,17 @@ class RecipeController extends Controller
     {
         //TODO: check if update fail
         if ($request->hasFile('image')) {
-            $hash = str_replace("/", "", Hash::make(now()));
-            $path = sprintf('%s/%s', Recipe::IMAGE_FOLDER, Auth::user()->id);
-            $imagePath = Storage::disk('public')->putFileAs($path, $request->image, $hash . '.png');
+            $image = base64_encode(file_get_contents($request->image));
+            $imagePath = 'data:image/png;base64, ' . ' ' . $image;
+            // $hash = str_replace("/", "", Hash::make(now()));
+            // $path = sprintf('%s/%s', Recipe::IMAGE_FOLDER, Auth::user()->id);
+            // $imagePath = Storage::disk('public')->putFileAs($path, $request->image, $hash . '.png');
         }
 
         $recipe->update([
             'title' => $request->title,
             'description' => $request->body,
-            'image' => isset($imagePath) ? asset('storage/' . $imagePath) : $recipe->image,
+            'image' => isset($imagePath) ? $imagePath : $recipe->image,
         ]);
 
         $recipe->tags()->detach();

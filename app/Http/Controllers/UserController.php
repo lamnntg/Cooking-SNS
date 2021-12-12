@@ -128,15 +128,17 @@ class UserController extends Controller
         $user = User::findOrFail($userId);
 
         if ($request->hasFile('image')) {
-            $hash = str_replace("/", "", Hash::make(now()));
-            $path = sprintf('%s/%s', User::IMAGE_FOLDER, $userId);
-            $imagePath = Storage::disk('public')->putFileAs($path, $request->image, $hash . '.png');
+            $image = base64_encode(file_get_contents($request->image));
+            $imagePath = 'data:image/png;base64, ' . ' ' . $image;
+            // $hash = str_replace("/", "", Hash::make(now()));
+            // $path = sprintf('%s/%s', User::IMAGE_FOLDER, $userId);
+            // $imagePath = Storage::disk('public')->putFileAs($path, $request->image, $hash . '.png');
         }
 
         $newUser = [
             'name' => $request->name ?? $user->name,
             'password' => $request->newPassword == null ? $user->password : Hash::make($request->newPassword),
-            'avatar' => isset($imagePath) ? asset('storage/' . $imagePath) : $user->avatar,
+            'avatar' => isset($imagePath) ? $imagePath : $user->avatar,
         ];
         //TODO Try catch
         $result = $user->update($newUser);
