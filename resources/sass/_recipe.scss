@@ -1,0 +1,130 @@
+.recipe-card {
+    border-radius: 10px;
+}
+
+.recipe-header {
+    min-height: 80px;
+}
+
+.recipe-title {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.profile-button-in-recipe-card {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    height: 50px;
+}
+
+.profile-button-in-comment-card {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    height: 30px;
+}
+
+.profile-button-in-comment-card__picture {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+}
+
+.profile-button-in-recipe-card__border {
+    display: none;
+    width: 50px;
+    height: 50px;
+    border: 1px solid var(--text-dark);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.profile-button-in-recipe-card:focus .profile-button-in-recipe-card__border {
+    display: block;
+}
+
+.profile-button-in-recipe-card__picture {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+}
+
+// .profile-button-in-recipe-card__picture::after {
+//     content: '';
+//     position: absolute;
+//     top: 0;
+//     bottom: 0;
+//     left: 0;
+//     right: 0;
+//     border: 1px solid var(--img-border);
+//     border-radius: 50%;
+// }
+
+.recipe-content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.recipe-card-content {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow: scroll;
+}
+
+.recipe-card-content::-webkit-scrollbar {
+    display: none;
+}
+
+.comment-item {
+    margin: 16px 0;
+}
+
+.recipe-comment {
+    flex: 1;
+    padding: 12px 0;
+    padding-left: 24px;
+    border: none;
+}
+
+.recipe-comment:focus {
+    outline: none;
+}
+
+.recipe-img {
+    max-height: 512px;
+    object-fit: contain;
+}
+
+.comment-box {
+    border: 1px solid #3e3e3e;
+    border-radius: 24px;
+    overflow: hidden;
+    margin: 0 24px 18px;
+}
+
+.comment-btn {
+    border: none;
+    border-radius: 0;
+    color: #0d6efd;
+    background-color: #fff;
+}
+
+.recipe-image{
+    max-height: 512px;
+    object-fit: contain;
+}

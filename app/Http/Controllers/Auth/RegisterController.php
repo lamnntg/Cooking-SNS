@@ -86,6 +86,13 @@ class RegisterController extends Controller
         ]);
     }
 
+    /**
+     * registerProviderUser function
+     *
+     * @param Request $request
+     * @param string $provider
+     * @return void
+     */
     public function registerProviderUser(Request $request, string $provider)
     {
         $request->validate([

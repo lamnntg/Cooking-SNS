@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateArticlesTable extends Migration
+class UpdateImageInRecipesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateArticlesTable extends Migration
      */
     public function up()
     {
-        Schema::create('articles', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('title');
-            $table->text('body');
-            $table->bigInteger('user_id');
-            $table->timestamps();
+        Schema::table('recipes', function (Blueprint $table) {
+            $table->longText('image')->nullable()->change();
+
         });
     }
 
@@ -29,6 +26,8 @@ class CreateArticlesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('articles');
+        Schema::table('recipes', function (Blueprint $table) {
+            //
+        });
     }
 }

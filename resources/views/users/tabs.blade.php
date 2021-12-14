@@ -1,6 +1,6 @@
-<ul class="nav nav-tabs nav-justified mt-3">
+{{-- <ul class="nav nav-tabs nav-justified mt-3">
   <li class="nav-item">
-    <a class="nav-link text-muted {{ $hasArticles ? 'active' : '' }}"
+    <a class="nav-link text-muted {{ $hasRecipes ? 'active' : '' }}"
        href="{{ route('users.show', ['name' => $user->name]) }}">
       記事
     </a>
@@ -11,4 +11,4 @@
       いいね
     </a>
   </li>
-</ul>
+</ul> --}}
