@@ -7,7 +7,7 @@
     <div class="container home-container">
         <div class="d-flex">
             <div class="p-4 w-100 home-content">
-                <!-- Button trigger modal -->
+                {{-- <!-- Button trigger modal -->
 
                 <div class="card recipe-card">
                     <div class="card-body d-flex p-2">
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- End Create Modal -->
+                <!-- End Create Modal --> --}}
 
                 @foreach ($recipes as $recipe)
                     @include('recipes.card')
