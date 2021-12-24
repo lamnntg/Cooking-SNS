@@ -45,6 +45,10 @@ Route::middleware(['auth', 'checkstatus'])->group(function () {
     Route::post('/profile/update', 'UserController@updateProfile')->name('profile.update');
 });
 
+    // Route::get('/manager', function () {
+    //     return view('manager.users');
+    // });
+
 // Route::get('/block', function () {
 //     return view('block');
 // });
