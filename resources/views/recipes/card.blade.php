@@ -117,7 +117,7 @@
         <p class="card-text mt-3 recipe-content">
             {!! nl2br(e($recipe->description)) !!}
         </p>
-        {{-- @if (count($recipe->tags) > 0)
+        @if (count($recipe->tags) > 0)
             <label for="">タグ：</label>
             @foreach ($recipe->tags as $tag)
                 @if ($loop->first)
@@ -128,7 +128,7 @@
                 @if ($loop->last)
                 @endif
             @endforeach
-        @endif --}}
+        @endif
     </div>
     <div class="card-footer">
         {{-- <recipe-like :initial-is-liked-by='@json($recipe->isLikedBy(Auth::user()))'

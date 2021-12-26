@@ -7,6 +7,37 @@
     <div class="container home-container">
         <div class="d-flex">
             <div class="p-4 w-100 home-content">
+                <div class="card text-center">
+                    <h3 class="card-header">何を食べたいですか？</h3>
+                    <div class="card-body">
+                        <button class="search-button--tag" data-bs-toggle="modal"
+                            data-bs-target="#tagSearchModal">食品のタグで検索、ここをクリックしてください！</button>
+                        {{-- Tag Search Modal --}}
+                        <div class="modal fade" id="tagSearchModal" tabindex="-1" aria-labelledby="tagSearchModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="tagSearchModalLabel">タグで検索</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="">
+                                            <label class="text-start mb-3">タグを入力</label>
+                                            <recipe-tags-input :initial-tags='@json($tagNames ?? [])'
+                                                :autocomplete-items='@json($allTagNames ?? [])'>
+                                            </recipe-tags-input>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button btn-lg" class="btn btn-secondary">探す</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 {{-- <!-- Button trigger modal -->
 
                 <div class="card recipe-card">
@@ -65,17 +96,19 @@
                         <div class="side-menu__suggestions-content">
                             <div class="side-menu__suggestion">
                                 <a href="#" class="side-menu__suggestion-avatar">
-                                    <img src="{{ $suggest_user->avatar ?? asset('images/default-user.png') }}" alt="User Picture">
+                                    <img src="{{ $suggest_user->avatar ?? asset('images/default-user.png') }}"
+                                        alt="User Picture">
                                 </a>
                                 <div class="side-menu__suggestion-info">
-                                    <a href="{{ route('users.show', ['name' => $suggest_user->name]) }}">{{ $suggest_user->name }}</a>
+                                    <a
+                                        href="{{ route('users.show', ['name' => $suggest_user->name]) }}">{{ $suggest_user->name }}</a>
                                 </div>
                                 @if (Auth::id() !== $suggest_user->id)
-                                <follow-button class="ms-auto"
-                                    :initial-is-followed-by='@json($suggest_user->isFollowedBy(Auth::user()))'
-                                    :authorized='@json(Auth::check())'
-                                    endpoint="{{ route('users.follow', ['name' => $suggest_user->name]) }}">
-                                </follow-button>
+                                    <follow-button class="ms-auto"
+                                        :initial-is-followed-by='@json($suggest_user->isFollowedBy(Auth::user()))'
+                                        :authorized='@json(Auth::check())'
+                                        endpoint="{{ route('users.follow', ['name' => $suggest_user->name]) }}">
+                                    </follow-button>
                                 @endif
                             </div>
                         </div>
@@ -89,7 +122,8 @@
                                 <a class="side-menu__footer-link" href="https://github.com/lamnntg/Cooking-SNS">トリコクック概要</a>
                             </li>
                             <li class="side-menu__footer-item">
-                                <a class="side-menu__footer-link" href="https://github.com/lamnntg/Cooking-SNS">トリコクックに連絡</a>
+                                <a class="side-menu__footer-link"
+                                    href="https://github.com/lamnntg/Cooking-SNS">トリコクックに連絡</a>
                             </li>
                         </ul>
                     </div>
