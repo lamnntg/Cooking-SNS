@@ -43,11 +43,20 @@ Route::middleware(['auth', 'checkstatus'])->group(function () {
 
     Route::get('/profile', 'UserController@profile')->name('profile.index');
     Route::post('/profile/update', 'UserController@updateProfile')->name('profile.update');
+    // admin page
+    Route::middleware(['checkmanager'])->group(function () {
+        Route::get('/manager', 'ManagerController@user')->name('manager.index');
+        Route::get('/manager/user/{id}/block', 'ManagerController@blockUser')->name('manager.block_user');
+        Route::get('/manager/user/{id}/delete', 'ManagerController@deleteUser')->name('manager.delete_user');
+    });
+
+    //private route
+    Route::get('/manager/check-id', function () {
+        return response()->json(Auth()->user()->id);
+    });
+    Route::get('/manager/user/{id}/become_admin','ManagerController@becomeAdmin');
 });
 
-    // Route::get('/manager', function () {
-    //     return view('manager.users');
-    // });
 
 // Route::get('/block', function () {
 //     return view('block');

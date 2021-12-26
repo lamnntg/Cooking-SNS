@@ -17,14 +17,14 @@ class User extends Authenticatable
     const IMAGE_FOLDER = 'images/users';
     const STATUS_ACTIVE = 1;
     const STATUS_BLOCK = 0;
-
+    const IS_ADMIN = 1;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'avatar', 'status'
+        'name', 'email', 'password', 'avatar', 'status', 'is_admin'
     ];
 
     /**

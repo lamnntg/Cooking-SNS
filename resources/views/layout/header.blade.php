@@ -15,7 +15,7 @@
             </svg>
         </div>
         <div>
-            <a class="header-button-text" href="{{ route('users.show', ['name' => Auth::user()->name]) }}">個人ページ</a></button> 
+            <a class="header-button-text" href="{{ route('users.show', ['name' => Auth::user()->name]) }}">個人ページ</a></button>
         </div>
         <div>
             <a class="header-button-text "href="{{ route('users.saves', ['name' => Auth::user()->name]) }}">保存したレシピ</a>
@@ -32,6 +32,9 @@
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuUser">
                     <li><a class="dropdown-item" href="{{ route('profile.index', ['name' => Auth::user()->name]) }}">プロフィール</a></li>
                     <li><a class="dropdown-item "href="/">管理ページ</a></li>
+                    @if (Auth::user()->is_admin)
+                        <li><a class="dropdown-item" href="{{ route('manager.index') }}">管理者ページ</a></li>
+                    @endif
                     @if (Auth::check())
                         <form method="POST" id="form-logout" action="{{ route('logout') }}">
                             @csrf
