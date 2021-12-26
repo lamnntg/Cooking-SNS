@@ -39,10 +39,53 @@
         <div class="card-body">
             <div class="card-text d-flex flex-column">
                 <div>
-                    {{ $user->count_followings }} フォロー
+                    <a href="#" class="text-dark text-decoration-none {{ count($followings) == 0 ? 'disabled' : '' }}" data-bs-toggle="modal"
+                        data-bs-target="#followingModal">
+                        {{ $user->count_followings }} フォロー
+                    </a>
+                    {{-- Follwings Modal --}}
+                    <div class="modal fade" id="followingModal" tabindex="-1" aria-labelledby="followingModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title " id="followingModalLabel">フォロー</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    @foreach ($followings as $person)
+                                        @include('users.person')
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="mt-3">
-                    {{ $user->count_followers }} フォロワー
+                    <a href="#" class="text-dark text-decoration-none {{ count($followers) == 0 ? 'disabled' : '' }}"
+                        disabled data-bs-toggle="modal" data-bs-target="#followerModal">
+                        {{ $user->count_followers }} フォロワー
+                    </a>
+                    {{-- Followers Modal --}}
+                    <div class="modal fade" id="followerModal" tabindex="-1" aria-labelledby="followerModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title " id="followerModalLabel">フォロワー</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    @foreach ($followers as $person)
+                                        @include('users.person')
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -58,7 +101,8 @@
                         data-bs-target="#createRecipeModal">
                         <div class="d-flex justify-content-center align-items-center">
                             <i class="fas fa-plus" style="font-size: 25px;"></i>
-                            <span style="margin-left: 10px; margin-top: 4px;">レシピを共有しますか？ {{ Auth::user()->name }}</span>
+                            <span style="margin-left: 10px; margin-top: 4px;">レシピを共有しますか？
+                                {{ Auth::user()->name }}</span>
                         </div>
                     </button>
                 </div>

@@ -13,13 +13,23 @@ class UserController extends Controller
     public function show(string $name)
     {
         $user = User::where('name', $name)->first()
-            ->load(['recipes.user', 'recipes.likes', 'recipes.tags']);
+            ->load([
+                'recipes.user', 
+                'recipes.likes', 
+                'recipes.tags', 
+                'followings.followers', 
+                'followers.followers'
+            ]);
 
         $recipes = $user->recipes->sortByDesc('created_at');
+        $followers = $user->followers->sortByDesc('created_at');
+        $followings = $user->followings->sortByDesc('created_at');
 
         return view('users.show', [
             'user' => $user,
             'recipes' => $recipes,
+            'followers' => $followers,
+            'followings' => $followings
         ]);
     }
 
@@ -112,8 +122,20 @@ class UserController extends Controller
     public function profile()
     {
         $userId = Auth::user()->id;
-        $user = User::where('id', $userId)->first();
-        return view('pages.profile.index', ['user' => $user]);
+        $user = User::where('id', $userId)->first()
+        ->load([
+            'followings.followers', 
+            'followers.followers'
+        ]);;
+
+        $followers = $user->followers->sortByDesc('created_at');
+        $followings = $user->followings->sortByDesc('created_at');
+
+        return view('pages.profile.index', [
+            'user' => $user,
+            'followers' => $followers,
+            'followings' => $followings
+        ]);
     }
 
     /**
