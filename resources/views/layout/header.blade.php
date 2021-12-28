@@ -23,6 +23,19 @@
 
         <div class="header__buttons header__buttons--desktop">
             <div class="dropdown">
+                <button id="dropdownMenuNoti" data-bs-toggle="dropdown" aria-expanded="false" style="border: none; background-color: transparent;">
+                    <i class="fas fa-bell"></i>
+                </button>     
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuNoti">
+                    <li><a class="dropdown-item "href="/">お知らせ１</a></li>
+                    <li><a class="dropdown-item "href="/">お知ら２</a></li>
+                    <li><a class="dropdown-item "href="/">お知ら３</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="header__buttons header__buttons--desktop">
+            <div class="dropdown">
                 <button class="profile-button" id="dropdownMenuUser" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="profile-button__border"></div>
                     <div class="profile-button__picture">
