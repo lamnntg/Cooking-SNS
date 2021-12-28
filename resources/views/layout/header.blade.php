@@ -31,9 +31,8 @@
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuUser">
                     <li><a class="dropdown-item" href="{{ route('profile.index', ['name' => Auth::user()->name]) }}">プロフィール</a></li>
-                    <li><a class="dropdown-item "href="/">管理ページ</a></li>
                     @if (Auth::user()->is_admin)
-                        <li><a class="dropdown-item" href="{{ route('manager.index') }}">管理者ページ</a></li>
+                        <li><a class="dropdown-item" href="{{ route('manager.index') }}">管理ページ</a></li>
                     @endif
                     @if (Auth::check())
                         <form method="POST" id="form-logout" action="{{ route('logout') }}">

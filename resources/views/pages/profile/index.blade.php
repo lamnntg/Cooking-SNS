@@ -105,7 +105,7 @@
         <div>
             <ul class="nav nav-tabs nav-justified mt-3">
                 <li class="nav-item">
-                    <a style="text-decoration: none;" class="text-dark" href="/">
+                    <a style="text-decoration: none;" class="text-dark" href="#">
                         個人情報
                     </a>
                 </li>

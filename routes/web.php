@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\MessageNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -54,9 +55,16 @@ Route::middleware(['auth', 'checkstatus'])->group(function () {
     Route::get('/manager/check-id', function () {
         return response()->json(Auth()->user()->id);
     });
-    Route::get('/manager/user/{id}/become_admin','ManagerController@becomeAdmin');
+    Route::get('/manager/user/{id}/become_admin', 'ManagerController@becomeAdmin');
 });
 
+Route::get('/event', function () {
+    event(new MessageNotification("Hello world"));
+});
+
+Route::get('/listen', function () {
+    return view('test');
+});
 
 // Route::get('/block', function () {
 //     return view('block');
