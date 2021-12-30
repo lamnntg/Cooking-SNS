@@ -39,12 +39,12 @@ class ManagerController extends Controller
             // return redirect()->back();
 
             try {
-                $user->comments()->delete();
-                $user->followers()->delete();
-                $user->followings()->delete();
-                $user->likes()->delete();
-                $user->saves()->delete();
-                $user->recipes()->delete();
+                if($user->comments()->exists()) $$user->comments()->delete();
+                if($user->followers()->exists()) $user->followers()->delete();
+                if($user->followings()->exists()) $user->followings()->delete();
+                if($user->likes()->exists()) $user->likes()->delete();
+                if($user->saves()->exists()) $user->saves()->delete();
+                if($user->recipes()->exists()) $user->recipes()->delete();
                 $user->delete();
             } catch (\Throwable $th) {
                 throw $th;
