@@ -28,10 +28,19 @@
                                     @endif
                                     @if ($user->status != 1)
                                         <td style="color: red;">Blocked</td>
+                                        <td>
+                                        <a href={{ route('manager.block_user', ['id' => $user->id]) }} class="btn btn-sm btn-outline-secondary">
+                                            <i class="fas fa-ban"></i>
+                                            Unblock
+                                        </a>
+                                        <a href={{ route('manager.delete_user', ['id' => $user->id]) }} class="btn btn-sm btn-outline-secondary">
+                                            <i style="color: red;" class="fas fa-minus-circle"></i>
+                                            Delete
+                                        </a>
+                                    </td>
                                     @else
                                         <td style="color: green;">Active</td>
-                                    @endif
-                                    <td>
+                                        <td>
                                         <a href={{ route('manager.block_user', ['id' => $user->id]) }} class="btn btn-sm btn-outline-secondary">
                                             <i class="fas fa-ban"></i>
                                             Block
@@ -41,6 +50,8 @@
                                             Delete
                                         </a>
                                     </td>
+                                    @endif
+                                    
                                 </tr>
                             @endforeach
                         </tbody>

@@ -22,7 +22,8 @@ class ManagerController extends Controller
             $user = User::findOrFail($userId);
 
             try {
-                $user->update(['status' => 0]);
+                $status = $user->status;
+                $user->update(['status' => !$status]);
             } catch (\Throwable $th) {
                 throw $th;
             }
@@ -35,9 +36,15 @@ class ManagerController extends Controller
         if ($userId != Auth()->user()->id) {
             $user = User::findOrFail($userId);
 
-            return redirect()->back();
+            // return redirect()->back();
 
             try {
+                $user->comments()->delete();
+                $user->followers()->delete();
+                $user->followings()->delete();
+                $user->likes()->delete();
+                $user->saves()->delete();
+                $user->recipes()->delete();
                 $user->delete();
             } catch (\Throwable $th) {
                 throw $th;
