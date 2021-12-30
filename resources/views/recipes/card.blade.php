@@ -117,17 +117,17 @@
         <p class="card-text mt-3 recipe-content">
             {!! nl2br(e($recipe->description)) !!}
         </p>
+        {{-- tags --}}
         @if (count($recipe->tags) > 0)
-            <label for="">タグ：</label>
-            @foreach ($recipe->tags as $tag)
-                @if ($loop->first)
-                <a href="{{ route('tags.show', ['name' => $tag->name]) }}" class="border p-1 me-1 mt-1 text-muted">
-                    {{ $tag->hashtag }}
-                </a>
-                @endif
-                @if ($loop->last)
-                @endif
-            @endforeach
+            <span>
+                <label for="">タグ：</label>
+                @foreach ($recipe->tags as $tag)
+                    <a href="{{ route('tags.show', ['name' => $tag->name]) }}"
+                        class="badge badge-light badge-pill text-muted" style="font-size: 100%">
+                        {{ $tag->hashtag }}
+                    </a>
+                @endforeach
+            </span>
         @endif
     </div>
     <div class="card-footer">
