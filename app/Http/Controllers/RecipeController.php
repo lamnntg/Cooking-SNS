@@ -41,8 +41,13 @@ class RecipeController extends Controller
             ->WhereNotIn('id', $followedUserId)
             ->take(8)->get();
 
+        $tags = Tag::all();
+
         return view('recipes.index', [
-            'recipes' => $recipes, 'suggest_users' => $users, 'search' => $request->get('search')
+            'recipes' => $recipes, 
+            'suggest_users' => $users, 
+            'search' => $request->get('search'),
+            'tags' => $tags
         ]);
     }
 
