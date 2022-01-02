@@ -78,7 +78,7 @@
     </div>
     <div class="card-body">
         <div class="d-flex">
-            <a href="{{ route('users.show', ['name' => $recipe->user->name]) }}" class="text-dark">
+            <a href="{{ route('users.show', ['name' => $recipe->user->name ?? '']) }}" class="text-dark">
                 <div class="profile-button-in-recipe-card">
                     <div class="profile-button-in-recipe-card__border"></div>
                     <div class="profile-button-in-recipe-card__picture">
@@ -88,9 +88,9 @@
             </a>
             <div class="ms-3 p-2">
                 <div class="fw-bold">
-                    <a style="text-decoration: none" href="{{ route('users.show', ['name' => $recipe->user->name]) }}"
+                    <a style="text-decoration: none" href="{{ route('users.show', ['name' => $recipe->user->name ?? '']) }}"
                         class="text-dark">
-                        {{ $recipe->user->name }}
+                        {{ $recipe->user->name ?? '' }}
                     </a>
                 </div>
                 <div class="fw-lighter">
@@ -122,7 +122,7 @@
             <span>
                 <label for="">タグ：</label>
                 @foreach ($recipe->tags as $tag)
-                    <a href="{{ route('tags.show', ['name' => $tag->name ?? null]) }}"
+                    <a href="{{ route('tags.show', ['name' => $tag->name ?? '']) }}"
                         class="badge badge-light badge-pill text-muted" style="font-size: 100%">
                         {{ $tag->hashtag ?? null }}
                     </a>
