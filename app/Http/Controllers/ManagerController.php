@@ -35,31 +35,32 @@ class ManagerController extends Controller
     public function deleteUser(int $userId)
     {
         if ($userId != Auth()->user()->id) {
-            $user = User::findOrFail($userId);
-
-            // return redirect()->back();
-
+            $user = User::with(['recipes'])->findOrFail($userId);
+            DB::beginTransaction();
             try {
-                
                 DB::table('follows')->where('user_id', $user->id)
-                                    ->orWhere('follower_id', $user->id)
-                                    ->delete();
-                $recipes = $user->recipes()->get();
-                foreach($recipes as $recipe) {
+                    ->orWhere('follower_id', $user->id)
+                    ->delete();
+
+                $recipes = $user->recipes;
+                foreach ($recipes as $recipe) {
                     DB::table('recipe_tag')->where('recipe_id', $recipe->id)->delete();
 
                     DB::table('comments')->where('user_id', $user->id)
-                                        ->orWhere('recipe_id', $recipe->id)
-                                        ->delete();
+                        ->orWhere('recipe_id', $recipe->id)
+                        ->delete();
 
                     DB::table('saves')->where('user_id', $user->id)
-                                    ->orWhere('recipe_id', $recipe->id)
-                                    ->delete();
-
+                        ->orWhere('recipe_id', $recipe->id)
+                        ->delete();
                 }
+
                 DB::table('recipes')->where('user_id', $user->id)->delete();
+
                 $user->delete();
+                DB::commit();
             } catch (\Throwable $th) {
+                DB::rollback();
                 throw $th;
             }
         }
