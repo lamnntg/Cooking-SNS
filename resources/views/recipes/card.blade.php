@@ -78,20 +78,25 @@
     </div>
     <div class="card-body">
         <div class="d-flex">
-            <a href="{{ route('users.show', ['name' => $recipe->user->name ?? '']) }}" class="text-dark">
-                <div class="profile-button-in-recipe-card">
-                    <div class="profile-button-in-recipe-card__border"></div>
-                    <div class="profile-button-in-recipe-card__picture">
-                        <img src="{{ $recipe->user->avatar ?? asset('images/default-user.png') }}" alt="User Picture">
-                    </div>
+            @if ($recipe->user->name)
+                <a href="{{ route('users.show', ['name' => $recipe->user->name]) }}" class="text-dark">
+            @endif
+            <div class="profile-button-in-recipe-card">
+                <div class="profile-button-in-recipe-card__border"></div>
+                <div class="profile-button-in-recipe-card__picture">
+                    <img src="{{ $recipe->user->avatar ?? asset('images/default-user.png') }}" alt="User Picture">
                 </div>
+            </div>
             </a>
             <div class="ms-3 p-2">
                 <div class="fw-bold">
-                    <a style="text-decoration: none" href="{{ route('users.show', ['name' => $recipe->user->name ?? '']) }}"
-                        class="text-dark">
-                        {{ $recipe->user->name ?? '' }}
-                    </a>
+                    @if ($recipe->user->name)
+                        <a style="text-decoration: none"
+                            href="{{ route('users.show', ['name' => $recipe->user->name ]) }}"
+                            class="text-dark">
+                            {{ $recipe->user->name }}
+                        </a>
+                    @endif
                 </div>
                 <div class="fw-lighter">
                     {{ $recipe->created_at->format('Y/m/d H:i') }}
