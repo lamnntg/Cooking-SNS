@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ManagerController extends Controller
 {
@@ -39,12 +40,24 @@ class ManagerController extends Controller
             // return redirect()->back();
 
             try {
-                if($user->comments()->exists()) $$user->comments()->delete();
-                if($user->followers()->exists()) $user->followers()->delete();
-                if($user->followings()->exists()) $user->followings()->delete();
-                if($user->likes()->exists()) $user->likes()->delete();
-                if($user->saves()->exists()) $user->saves()->delete();
-                if($user->recipes()->exists()) $user->recipes()->delete();
+                
+                DB::table('follows')->where('user_id', $user->id)
+                                    ->orWhere('follower_id', $user->id)
+                                    ->delete();
+                $recipes = $user->recipes()->get();
+                foreach($recipes as $recipe) {
+                    DB::table('recipe_tag')->where('recipe_id', $recipe->id)->delete();
+
+                    DB::table('comments')->where('user_id', $user->id)
+                                        ->orWhere('recipe_id', $recipe->id)
+                                        ->delete();
+
+                    DB::table('saves')->where('user_id', $user->id)
+                                    ->orWhere('recipe_id', $recipe->id)
+                                    ->delete();
+
+                }
+                DB::table('recipes')->where('user_id', $user->id)->delete();
                 $user->delete();
             } catch (\Throwable $th) {
                 throw $th;
