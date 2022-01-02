@@ -78,7 +78,7 @@
     </div>
     <div class="card-body">
         <div class="d-flex">
-            @if ($recipe->user->name)
+            @if ($recipe->user->name ?? false)
                 <a href="{{ route('users.show', ['name' => $recipe->user->name]) }}" class="text-dark">
             @endif
             <div class="profile-button-in-recipe-card">
@@ -90,7 +90,7 @@
             </a>
             <div class="ms-3 p-2">
                 <div class="fw-bold">
-                    @if ($recipe->user->name)
+                    @if ($recipe->user->name ?? false)
                         <a style="text-decoration: none"
                             href="{{ route('users.show', ['name' => $recipe->user->name ]) }}"
                             class="text-dark">
