@@ -154,6 +154,52 @@ input[type="file"] {
     color: black;
 }
 
+.tags-filter-input {
+    position: relative;
+    height: 48px;
+    width: 240px;
+    border-radius: 999px;
+    padding: 0 32px;
+    outline: none;
+    border: 1px solid #e3e3e3;
+    overflow: hidden;
+}
+
+.tags-filter-input--inner {
+    height: 100%;
+    width: 100%;
+    border: none;
+    outline: none;
+}
+
+.tags-filter-input--inner:focus {
+    border: none;
+}
+
+.tags-search-btn, .tags-clear-btn {
+    position: absolute;
+    width: 40px;
+    top: 0;
+    bottom: 0;
+    color: #e3e3e3;
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+
+.tags-search-btn {
+    left: 0;
+}
+
+.tags-clear-btn {
+    display: none;
+    right: 0;
+}
+
+.tags-clear-btn:hover {
+    color: #000000;
+}
+
 .tag-btn {
     padding: 16px;
     margin: 0 4px;
