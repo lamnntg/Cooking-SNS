@@ -25,7 +25,7 @@
                             </button>
                             <div id="tags-content" class="d-flex overflow-hidden">
                                 @foreach ($tags as $tag)
-                                    <a href="{{ route('tags.show', ['name' => $tag->name]) }}"
+                                    <a href="{{ route('tags.show', ['name' => $tag->name ?? '']) }}"
                                         class="tag-btn fw-bold text-decoration-none">
                                         {{ $tag->hashtag }}
                                     </a>

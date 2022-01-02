@@ -122,9 +122,9 @@
             <span>
                 <label for="">タグ：</label>
                 @foreach ($recipe->tags as $tag)
-                    <a href="{{ route('tags.show', ['name' => $tag->name]) }}"
+                    <a href="{{ route('tags.show', ['name' => $tag->name ?? null]) }}"
                         class="badge badge-light badge-pill text-muted" style="font-size: 100%">
-                        {{ $tag->hashtag }}
+                        {{ $tag->hashtag ?? null }}
                     </a>
                 @endforeach
             </span>
