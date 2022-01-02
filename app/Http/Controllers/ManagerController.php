@@ -43,15 +43,24 @@ class ManagerController extends Controller
                     ->delete();
 
                 $recipes = $user->recipes;
-                foreach ($recipes as $recipe) {
-                    DB::table('recipe_tag')->where('recipe_id', $recipe->id)->delete();
+                
+                if (sizeof($recipes) > 0) {
+                    foreach ($recipes as $recipe) {
+                        DB::table('recipe_tag')->where('recipe_id', $recipe->id)->delete();
 
+                        DB::table('comments')->where('user_id', $user->id)
+                            ->orWhere('recipe_id', $recipe->id)
+                            ->delete();
+
+                        DB::table('saves')->where('user_id', $user->id)
+                            ->orWhere('recipe_id', $recipe->id)
+                            ->delete();
+                    }
+                } else {
                     DB::table('comments')->where('user_id', $user->id)
-                        ->orWhere('recipe_id', $recipe->id)
-                        ->delete();
+                            ->delete();
 
                     DB::table('saves')->where('user_id', $user->id)
-                        ->orWhere('recipe_id', $recipe->id)
                         ->delete();
                 }
 
