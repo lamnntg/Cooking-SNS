@@ -9,21 +9,32 @@
             <div class="p-4 w-100 home-content" style="max-width: 768px">
                 <div class="card text-center">
                     <h3 class="card-header">何を食べたいですか？</h3>
-                    <div class="card-body" style="position: relative">
-                        <button id="tags-left-btn">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <div id="tags-content" class="d-flex overflow-hidden">
-                            @foreach ($tags as $tag)
-                                <a href="{{ route('tags.show', ['name' => $tag->name]) }}"
-                                    class="tag-btn fw-bold text-decoration-none">
-                                    {{ $tag->hashtag }}
-                                </a>
-                            @endforeach
+                    <div class="card-body">
+                        <div class="tags-filter-input text-start mb-3">
+                            <button class="tags-search-btn" disabled>
+                                <i class="fas fa-search"></i>
+                            </button>
+                            <input type="text" name="tag" id="tagInput" class="tags-filter-input--inner" placeholder="タグ検索">
+                            <button class="tags-clear-btn" id="tags-clear-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
                         </div>
-                        <button id="tags-right-btn">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
+                        <div class="tags-content-wrapper" style="position: relative">
+                            <button id="tags-left-btn">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <div id="tags-content" class="d-flex overflow-hidden">
+                                @foreach ($tags as $tag)
+                                    <a href="{{ route('tags.show', ['name' => $tag->name]) }}"
+                                        class="tag-btn fw-bold text-decoration-none">
+                                        {{ $tag->hashtag }}
+                                    </a>
+                                @endforeach
+                            </div>
+                            <button id="tags-right-btn">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 {{-- <!-- Button trigger modal -->

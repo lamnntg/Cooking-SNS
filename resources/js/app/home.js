@@ -11,6 +11,25 @@ $(document).ready(function () {
             window.location.href = origin + "?search=" + value;
         }
     });
+
+    $("#tagInput").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        toggleFilteredTags(value);
+        if (value !== "") {
+            $("#tags-clear-btn").show()
+        } else {
+            $("#tags-clear-btn").hide()
+        }
+    });
+
+});
+
+$('#tags-clear-btn').on("click", function (event) {
+    event.preventDefault();
+    $("#tagInput").val("")
+    $("#tags-clear-btn").hide()
+    toggleFilteredTags("")
+
 });
 
 $('#tags-right-btn').on("click", function (event) {
@@ -35,6 +54,11 @@ const tagsContent = document.getElementById("tags-content")
 const tagsLeftBtn = document.getElementById("tags-left-btn")
 const tagsRightBtn = document.getElementById("tags-right-btn")
 
+const toggleFilteredTags = (value) => {
+    $("#tags-content a").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+}
 const toggleScrollButton = () => {
     if (tagsContent.scrollLeft == 0) {
         tagsLeftBtn.style.display = "none"
