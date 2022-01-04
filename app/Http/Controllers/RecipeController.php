@@ -151,7 +151,20 @@ class RecipeController extends Controller
     {
         $comments = Comment::with('user')->where('recipe_id', $recipe->id)->orderBy('created_at', 'desc')->get();
 
-        return view('recipes.show', ['recipe' => $recipe, 'comments' => $comments]);
+        $tagNames = $recipe->tags->map(function ($tag) {
+            return ['text' => $tag->name];
+        });
+
+        $allTagNames = Tag::all()->map(function ($tag) {
+            return ['text' => $tag->name];
+        });
+
+        return view('recipes.show', [
+            'recipe' => $recipe, 
+            'tagNames' => $tagNames,
+            'allTagNames' => $allTagNames,
+            'comments' => $comments
+        ]);
     }
 
     public function like(Request $request, Recipe $recipe)
