@@ -11,7 +11,7 @@ class ManagerController extends Controller
 {
     public function user()
     {
-        $users = User::all();
+        $users = User::all()->sortBy('id');
 
         return view('manager.users', compact('users'));
     }
