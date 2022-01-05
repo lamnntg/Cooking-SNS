@@ -15,15 +15,17 @@ class MessageNotification implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $message;
+    public $userId;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message = 'No message')
+    public function __construct($message = 'No message', $userId = null)
     {
         $this->message = $message;
+        $this->userId = $userId;
     }
 
     /**
@@ -33,6 +35,7 @@ class MessageNotification implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('notification');
+        return new Channel('App.User.' . $this->userId);
     }
 }
+

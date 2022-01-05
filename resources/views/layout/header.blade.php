@@ -2,7 +2,7 @@
     <nav class="header__content">
         <div class="header__buttons">
             <a href="/" class="header__home">
-                <img src="{{ asset('images/logo.png') }}" style="height: 60px;"  alt="">
+                <img src="{{ asset('images/logo.png') }}" style="height: 60px;" alt="">
             </a>
         </div>
 
@@ -15,23 +15,19 @@
             </svg>
         </div>
         <div>
-            <a class="header-button-text" href="{{ route('users.show', ['name' => Auth::user()->name]) }}">個人ページ</a></button>
+            <a class="header-button-text"
+                href="{{ route('users.show', ['name' => Auth::user()->name]) }}">個人ページ</a></button>
         </div>
         <div>
-            <a class="header-button-text "href="{{ route('users.saves', ['name' => Auth::user()->name]) }}">保存したレシピ</a>
+            <a class="header-button-text "
+                href="{{ route('users.saves', ['name' => Auth::user()->name]) }}">保存したレシピ</a>
         </div>
 
         <div class="header__buttons header__buttons--desktop">
-            <div class="dropdown">
-                <button id="dropdownMenuNoti" data-bs-toggle="dropdown" aria-expanded="false" style="border: none; background-color: transparent;">
-                    <i class="fas fa-bell"></i>
-                </button>     
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuNoti">
-                    <li><a class="dropdown-item "href="/">お知らせ１</a></li>
-                    <li><a class="dropdown-item "href="/">お知ら２</a></li>
-                    <li><a class="dropdown-item "href="/">お知ら３</a></li>
-                </ul>
-            </div>
+            <notifications
+                @if (Auth::user()->id) :user-id="{{ (int) Auth::user()->id }}" @endif
+                @if (isset($notificationData)) :notifications-data="{{ [] }}" @endif
+            ></notifications>
         </div>
 
         <div class="header__buttons header__buttons--desktop">
@@ -43,7 +39,8 @@
                     </div>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuUser">
-                    <li><a class="dropdown-item" href="{{ route('profile.index', ['name' => Auth::user()->name]) }}">プロフィール</a></li>
+                    <li><a class="dropdown-item"
+                            href="{{ route('profile.index', ['name' => Auth::user()->name]) }}">プロフィール</a></li>
                     @if (Auth::user()->is_admin)
                         <li><a class="dropdown-item" href="{{ route('manager.index') }}">管理ページ</a></li>
                     @endif

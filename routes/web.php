@@ -59,7 +59,7 @@ Route::middleware(['auth', 'checkstatus'])->group(function () {
 });
 
 Route::get('/event', function () {
-    event(new MessageNotification("Hello world"));
+    event(new MessageNotification("Hello world", Auth()->user()->id));
 });
 
 Route::get('/listen', function () {
