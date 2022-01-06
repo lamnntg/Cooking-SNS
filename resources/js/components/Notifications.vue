@@ -1,15 +1,18 @@
 <template>
-    <div class="dropdown">
-        <button
-            id="dropdownMenuNoti"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
+  <div class="dropdown">
+    <button
+      id="dropdownMenuNoti"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
             style="border: none; background-color: transparent;"
         >
-            <i class="fas fa-bell">{{ count }}</i>
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuNoti">
-            <li v-for="item in notifications" :key="item.id">
+      <div class="noti">
+        <i class="fas fa-bell"></i>
+        <div v-if="count" class="badge badge-danger noti-count">{{ count }}</div>
+      </div>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuNoti">
+      <li v-for="item in notifications" :key="item.id">
                 <a class="dropdown-item " href="#"> {{ item.message }} </a>
             </li>
         </ul>
@@ -46,3 +49,15 @@ export default {
     }
 };
 </script>
+<style>
+.noti {
+  position: relative;
+}
+.noti-count {
+  font-size: xx-small;
+  position: absolute;
+  padding: 3px;
+  top: -7px;
+  left: 7px;
+}
+</style>
