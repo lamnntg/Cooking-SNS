@@ -116,7 +116,7 @@
                 {{-- {{dd($suggest_users)}} --}}
                 <div class="side-menu__footer">
                     <div class="side-menu__footer-links">
-                        <ul class="side-menu__footer-list">
+                        {{-- <ul class="side-menu__footer-list">
                             <li class="side-menu__footer-item">
                                 <a class="side-menu__footer-link" href="https://github.com/lamnntg/Cooking-SNS">トリコクック概要</a>
                             </li>
@@ -124,7 +124,7 @@
                                 <a class="side-menu__footer-link"
                                     href="https://github.com/lamnntg/Cooking-SNS">トリコクックに連絡</a>
                             </li>
-                        </ul>
+                        </ul> --}}
                     </div>
 
                     <span class="side-menu__footer-copyright">&copy; 2021 Recipes SNS from TorikoCookTeam</span>
