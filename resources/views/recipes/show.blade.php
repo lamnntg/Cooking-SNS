@@ -158,13 +158,14 @@
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title fw-bold" id="createRecipeModalLabel">レシピ作成</h5>
+                                        <h5 class="modal-title fw-bold" id="createRecipeModalLabel">レシピ更新</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         @include('error_card_list')
-                                        <form method="POST" action="{{ route('recipes.update', ['recipe' => $recipe]) }}" enctype="multipart/form-data">
+                                        <form method="POST" action="{{ route('recipes.update', ['recipe' => $recipe]) }}"
+                                            enctype="multipart/form-data">
                                             @method('PATCH')
                                             @include('recipes.form', ['is_edit' => true])
                                             <button type="submit" class="btn create-submit-btn float-end mt-3">更新する</button>
@@ -216,6 +217,20 @@
                 <p class="card-text mt-3">
                     {!! nl2br(e($recipe->description)) !!}
                 </p>
+
+                {{-- tags --}}
+
+                @if (count($recipe->tags) > 0)
+                <span class="mt-3">
+                    <label for="">タグ：</label>
+                    @foreach ($recipe->tags as $tag)
+                        <a href="{{ route('tags.show', ['name' => $tag->name]) }}"
+                            class=" badge badge-light badge-pill text-muted" style="font-size: 100%">
+                            {{ $tag->hashtag }}
+                        </a>
+                    @endforeach
+                </span>
+            @endif
             </div>
             <div class="card-footer border-bottom d-flex">
                 <recipe-like :initial-is-liked-by='@json($recipe->isLikedBy(Auth::user()))'
@@ -232,6 +247,9 @@
                     </recipe-save>
                 @endif
             </div>
+
+            
+
             {{-- comment list --}}
             <div id="list_comments">
                 @foreach ($comments as $comment)
@@ -240,7 +258,8 @@
                             <a href="{{ route('users.show', ['name' => $comment->user->name]) }}" class="text-dark">
                                 <div class="profile-button-in-comment-card">
                                     <div class="profile-button-in-comment-card__picture">
-                                        <img src="{{ $comment->user->avatar ?? asset('images/default-user.png') }}" alt="User Picture">
+                                        <img src="{{ $comment->user->avatar ?? asset('images/default-user.png') }}"
+                                            alt="User Picture">
                                     </div>
                                 </div>
                             </a>

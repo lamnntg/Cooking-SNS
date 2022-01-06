@@ -3,11 +3,11 @@
     <label>料理タイトル</label>
     <input type="text" name="title" class="form-control" required value="{{ $recipe->title ?? old('title') }}">
 </div>
-{{-- <div class="form-group mt-3">
+<div class="form-group mt-3">
     <label>タグ</label>
     <recipe-tags-input :initial-tags='@json($tagNames ?? [])' :autocomplete-items='@json($allTagNames ?? [])'>
     </recipe-tags-input>
-</div> --}}
+</div>
 <div class="form-group mt-3">
     <label>料理の写真</label>
     @if (isset($is_edit))

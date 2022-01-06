@@ -6,7 +6,7 @@ use App\User;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class CheckStatus
+class CheckManager
 {
     /**
      * Handle an incoming request.
@@ -19,9 +19,8 @@ class CheckStatus
     {
         $response = $next($request);
         //If the status is not active, redirect to the block page
-        if(Auth::check() && Auth::user()->status != User::STATUS_ACTIVE){
-            Auth::logout();
-            return response()->view('block');
+        if(Auth::user()->is_admin != User::IS_ADMIN){
+            return response()->redirectTo('/');
         }
 
         return $response;

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Events\MessageNotification;
 use App\Follow;
 use App\Recipe;
 use App\User;
@@ -41,8 +42,14 @@ class RecipeController extends Controller
             ->WhereNotIn('id', $followedUserId)
             ->take(8)->get();
 
+        // tags
+        $tags = Tag::all();
+
         return view('recipes.index', [
-            'recipes' => $recipes, 'suggest_users' => $users, 'search' => $request->get('search')
+            'recipes' => $recipes,
+            'suggest_users' => $users,
+            'search' => $request->get('search'),
+            'tags' => $tags
         ]);
     }
 
@@ -87,6 +94,12 @@ class RecipeController extends Controller
                 $tag = Tag::firstOrCreate(['name' => $tagName]);
                 $recipe->tags()->attach($tag);
             });
+        }
+
+        $followedUserId = Follow::where('follower_id', $userId)->pluck('user_id');
+        foreach ($followedUserId as $key => $userId) {
+            $user = User::find($userId);
+            event(new MessageNotification(Auth()->user()->name . ' just posted a new post', $userId));
         }
 
         return redirect()->route('recipes.index');
@@ -145,7 +158,20 @@ class RecipeController extends Controller
     {
         $comments = Comment::with('user')->where('recipe_id', $recipe->id)->orderBy('created_at', 'desc')->get();
 
-        return view('recipes.show', ['recipe' => $recipe, 'comments' => $comments]);
+        $tagNames = $recipe->tags->map(function ($tag) {
+            return ['text' => $tag->name];
+        });
+
+        $allTagNames = Tag::all()->map(function ($tag) {
+            return ['text' => $tag->name];
+        });
+
+        return view('recipes.show', [
+            'recipe' => $recipe, 
+            'tagNames' => $tagNames,
+            'allTagNames' => $allTagNames,
+            'comments' => $comments
+        ]);
     }
 
     public function like(Request $request, Recipe $recipe)

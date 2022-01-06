@@ -78,20 +78,25 @@
     </div>
     <div class="card-body">
         <div class="d-flex">
-            <a href="{{ route('users.show', ['name' => $recipe->user->name]) }}" class="text-dark">
-                <div class="profile-button-in-recipe-card">
-                    <div class="profile-button-in-recipe-card__border"></div>
-                    <div class="profile-button-in-recipe-card__picture">
-                        <img src="{{ $recipe->user->avatar ?? asset('images/default-user.png') }}" alt="User Picture">
-                    </div>
+            @if ($recipe->user->name ?? false)
+                <a href="{{ route('users.show', ['name' => $recipe->user->name]) }}" class="text-dark">
+            @endif
+            <div class="profile-button-in-recipe-card">
+                <div class="profile-button-in-recipe-card__border"></div>
+                <div class="profile-button-in-recipe-card__picture">
+                    <img src="{{ $recipe->user->avatar ?? asset('images/default-user.png') }}" alt="User Picture">
                 </div>
+            </div>
             </a>
             <div class="ms-3 p-2">
                 <div class="fw-bold">
-                    <a style="text-decoration: none" href="{{ route('users.show', ['name' => $recipe->user->name]) }}"
-                        class="text-dark">
-                        {{ $recipe->user->name }}
-                    </a>
+                    @if ($recipe->user->name ?? false)
+                        <a style="text-decoration: none"
+                            href="{{ route('users.show', ['name' => $recipe->user->name ]) }}"
+                            class="text-dark">
+                            {{ $recipe->user->name }}
+                        </a>
+                    @endif
                 </div>
                 <div class="fw-lighter">
                     {{ $recipe->created_at->format('Y/m/d H:i') }}
@@ -117,18 +122,18 @@
         <p class="card-text mt-3 recipe-content">
             {!! nl2br(e($recipe->description)) !!}
         </p>
-        {{-- @if (count($recipe->tags) > 0)
-            <label for="">タグ：</label>
-            @foreach ($recipe->tags as $tag)
-                @if ($loop->first)
-                <a href="{{ route('tags.show', ['name' => $tag->name]) }}" class="border p-1 me-1 mt-1 text-muted">
-                    {{ $tag->hashtag }}
-                </a>
-                @endif
-                @if ($loop->last)
-                @endif
-            @endforeach
-        @endif --}}
+        {{-- tags --}}
+        @if (count($recipe->tags) > 0)
+            <span>
+                <label for="">タグ：</label>
+                @foreach ($recipe->tags as $tag)
+                    <a href="{{ route('tags.show', ['name' => $tag->name ?? '']) }}"
+                        class="badge badge-light badge-pill text-muted" style="font-size: 100%">
+                        {{ $tag->hashtag ?? null }}
+                    </a>
+                @endforeach
+            </span>
+        @endif
     </div>
     <div class="card-footer">
         {{-- <recipe-like :initial-is-liked-by='@json($recipe->isLikedBy(Auth::user()))'

@@ -49,7 +49,7 @@
                                                 name="password_confirmation" required>
                                         </div>
                                     </div>
-                                    <div class="text-center">
+                                    <div class="text-center d-flex justify-content-center">
                                     <button class="btn register-btn btn-block btn-secondary mb-2" type="submit">ユーザー登録</button>
                                     </div>
                                 </form>

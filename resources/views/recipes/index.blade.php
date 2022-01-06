@@ -6,8 +6,38 @@
     @include('layout.header')
     <div class="container home-container">
         <div class="d-flex">
-            <div class="p-4 w-100 home-content">
-                <!-- Button trigger modal -->
+            <div class="p-4 w-100 home-content" style="max-width: 768px">
+                <div class="card text-center">
+                    <h3 class="card-header">何を食べたいですか？</h3>
+                    <div class="card-body">
+                        <div class="tags-filter-input text-start mb-3">
+                            <button class="tags-search-btn" disabled>
+                                <i class="fas fa-search"></i>
+                            </button>
+                            <input type="text" name="tag" id="tagInput" class="tags-filter-input--inner" placeholder="タグ検索">
+                            <button class="tags-clear-btn" id="tags-clear-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="tags-content-wrapper" style="position: relative">
+                            <button id="tags-left-btn">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <div id="tags-content" class="d-flex overflow-hidden">
+                                @foreach ($tags as $tag)
+                                    <a href="{{ route('tags.show', ['name' => $tag->name ?? '']) }}"
+                                        class="tag-btn fw-bold text-decoration-none">
+                                        {{ $tag->hashtag }}
+                                    </a>
+                                @endforeach
+                            </div>
+                            <button id="tags-right-btn">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {{-- <!-- Button trigger modal -->
 
                 <div class="card recipe-card">
                     <div class="card-body d-flex p-2">
@@ -46,7 +76,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- End Create Modal -->
+                <!-- End Create Modal --> --}}
 
                 @foreach ($recipes as $recipe)
                     @include('recipes.card')
@@ -65,17 +95,19 @@
                         <div class="side-menu__suggestions-content">
                             <div class="side-menu__suggestion">
                                 <a href="#" class="side-menu__suggestion-avatar">
-                                    <img src="{{ $suggest_user->avatar ?? asset('images/default-user.png') }}" alt="User Picture">
+                                    <img src="{{ $suggest_user->avatar ?? asset('images/default-user.png') }}"
+                                        alt="User Picture">
                                 </a>
                                 <div class="side-menu__suggestion-info">
-                                    <a href="{{ route('users.show', ['name' => $suggest_user->name]) }}">{{ $suggest_user->name }}</a>
+                                    <a
+                                        href="{{ route('users.show', ['name' => $suggest_user->name]) }}">{{ $suggest_user->name }}</a>
                                 </div>
                                 @if (Auth::id() !== $suggest_user->id)
-                                <follow-button class="ms-auto"
-                                    :initial-is-followed-by='@json($suggest_user->isFollowedBy(Auth::user()))'
-                                    :authorized='@json(Auth::check())'
-                                    endpoint="{{ route('users.follow', ['name' => $suggest_user->name]) }}">
-                                </follow-button>
+                                    <follow-button class="ms-auto"
+                                        :initial-is-followed-by='@json($suggest_user->isFollowedBy(Auth::user()))'
+                                        :authorized='@json(Auth::check())'
+                                        endpoint="{{ route('users.follow', ['name' => $suggest_user->name]) }}">
+                                    </follow-button>
                                 @endif
                             </div>
                         </div>
@@ -89,7 +121,8 @@
                                 <a class="side-menu__footer-link" href="https://github.com/lamnntg/Cooking-SNS">トリコクック概要</a>
                             </li>
                             <li class="side-menu__footer-item">
-                                <a class="side-menu__footer-link" href="https://github.com/lamnntg/Cooking-SNS">トリコクックに連絡</a>
+                                <a class="side-menu__footer-link"
+                                    href="https://github.com/lamnntg/Cooking-SNS">トリコクックに連絡</a>
                             </li>
                         </ul>
                     </div>
