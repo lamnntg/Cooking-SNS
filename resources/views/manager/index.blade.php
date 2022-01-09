@@ -54,7 +54,7 @@
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-dark text-light vh-100 sidebar collapse"
                 style="height: auto !important;">
                 <div class="position-sticky pt-3">
-                    <ul class="nav flex-column">
+                    <ul class="nav flex-column" style="font-size: 14px;">
                         <li class="nav-item">
                             <a class="nav-link text-light" aria-current="page" href="#">
                                 <span data-feather="home"></span>
