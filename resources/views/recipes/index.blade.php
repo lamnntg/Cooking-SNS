@@ -6,7 +6,7 @@
     @include('layout.header')
     <div class="container home-container">
         <div class="d-flex">
-            <div class="p-4 w-100 home-content" style="max-width: 768px">
+            <div class="p-4 w-100 home-content">
                 <div class="card text-center">
                     <h3 class="card-header">何を食べたいですか？</h3>
                     <div class="card-body">
