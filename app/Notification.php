@@ -11,6 +11,7 @@ class Notification extends Model
     protected $table = 'notifications';
 
     const TYPE_RECIPE = 1;
+    const TYPE_FOLLOW = 2;
     const STATUS_UNREAD = 0;
     const STATUS_READ = 1;
 

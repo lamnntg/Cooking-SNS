@@ -1,9 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Events\MessageNotification;
+use App\Notification;
 use Illuminate\Support\Facades\Auth;
 
 use App\User;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -14,10 +18,10 @@ class UserController extends Controller
     {
         $user = User::where('name', $name)->first()
             ->load([
-                'recipes.user', 
-                'recipes.likes', 
-                'recipes.tags', 
-                'followings.followers', 
+                'recipes.user',
+                'recipes.likes',
+                'recipes.tags',
+                'followings.followers',
                 'followers.followers'
             ]);
 
@@ -97,6 +101,14 @@ class UserController extends Controller
         $request->user()->followings()->detach($user);
         $request->user()->followings()->attach($user);
 
+        Notification::create([
+            'follower_id' => Auth()->user()->id,
+            'user_id' => $user->id,
+            'content' => Auth()->user()->name . ' vừa follow bạn', $user->id ,
+            "type" => Notification::TYPE_FOLLOW,
+            "status" => Notification::STATUS_UNREAD,
+        ]);
+        event(new MessageNotification(Auth()->user()->name . ' vừa follow bạn', $user->id ));
         return ['name' => $name];
     }
 
@@ -124,7 +136,7 @@ class UserController extends Controller
         $userId = Auth::user()->id;
         $user = User::where('id', $userId)->first()
         ->load([
-            'followings.followers', 
+            'followings.followers',
             'followers.followers'
         ]);;
 
@@ -151,7 +163,16 @@ class UserController extends Controller
 
         if ($request->hasFile('image')) {
             $image = base64_encode(file_get_contents($request->image));
-            $imagePath = 'data:image/png;base64, ' . ' ' . $image;
+            $client = new Client();
+            $url = "https://api.imgbb.com/1/upload?expiration=600&key=0f19983334b9a3c0c1e5a6a365ee1b26";
+            $response = $client->post($url, [
+                'form_params' => [
+                    'image' => $image,
+                    'name' => $request->image->getClientOriginalName(),
+                ]
+            ]);
+            $responseData = json_decode($response->getBody()->getContents());
+            $imagePath = $responseData->data->display_url;
             // $hash = str_replace("/", "", Hash::make(now()));
             // $path = sprintf('%s/%s', User::IMAGE_FOLDER, $userId);
             // $imagePath = Storage::disk('public')->putFileAs($path, $request->image, $hash . '.png');

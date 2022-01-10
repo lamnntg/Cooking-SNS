@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use GuzzleHttp\Client;
 
 class RecipeController extends Controller
 {
@@ -73,7 +74,17 @@ class RecipeController extends Controller
         // try {
         if ($request->hasFile('image')) {
             $image = base64_encode(file_get_contents($request->image));
-            $imagePath = 'data:image/png;base64, ' . ' ' . $image;
+
+            $client = new Client();
+            $url = "https://api.imgbb.com/1/upload?expiration=600&key=0f19983334b9a3c0c1e5a6a365ee1b26";
+            $response = $client->post($url, [
+                'form_params' => [
+                    'image' => $image,
+                    'name' => $request->image->getClientOriginalName(),
+                ]
+            ]);
+            $responseData = json_decode($response->getBody()->getContents());
+            $imagePath = $responseData->data->display_url;
             // dd($imageCode);
             // $hash = str_replace("/", "", \Hash::make(now()));
             // $path = sprintf('%s/%s', Recipe::IMAGE_FOLDER, $userId);
@@ -97,9 +108,8 @@ class RecipeController extends Controller
             });
         }
 
-        $followedUserId = Follow::where('follower_id', $userId)->pluck('user_id');
+        $followedUserId = Follow::where('user_id', $userId)->pluck('follower_id');
         foreach ($followedUserId as $key => $userId) {
-
             Notification::create([
                 'follower_id' => Auth()->user()->id,
                 'user_id' => $userId,
@@ -136,7 +146,16 @@ class RecipeController extends Controller
         //TODO: check if update fail
         if ($request->hasFile('image')) {
             $image = base64_encode(file_get_contents($request->image));
-            $imagePath = 'data:image/png;base64, ' . ' ' . $image;
+            $client = new Client();
+            $url = "https://api.imgbb.com/1/upload?expiration=600&key=0f19983334b9a3c0c1e5a6a365ee1b26";
+            $response = $client->post($url, [
+                'form_params' => [
+                    'image' => $image,
+                    'name' => $request->image->getClientOriginalName(),
+                ]
+            ]);
+            $responseData = json_decode($response->getBody()->getContents());
+            $imagePath = $responseData->data->display_url;
             // $hash = str_replace("/", "", Hash::make(now()));
             // $path = sprintf('%s/%s', Recipe::IMAGE_FOLDER, Auth::user()->id);
             // $imagePath = Storage::disk('public')->putFileAs($path, $request->image, $hash . '.png');
