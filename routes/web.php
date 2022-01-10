@@ -1,6 +1,8 @@
 <?php
 
 use App\Events\MessageNotification;
+use App\Notification;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -66,9 +68,13 @@ Route::get('/listen', function () {
     return view('test');
 });
 
-// Route::get('/block', function () {
-//     return view('block');
-// });
+Route::get('/api/notifications/user/{id}', function (Request $request, int $id) {
+    if ($request->ajax()) {
+        $notifications = Notification::where('user_id', $id)->take(5)->get();
+
+        return response()->json($notifications);
+    }
+});
 
 // Route::get('/home', function () {
 //     return view('home');

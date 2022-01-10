@@ -9,6 +9,7 @@ use App\Recipe;
 use App\User;
 use App\Tag;
 use App\Http\Requests\RecipeRequest;
+use App\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -98,7 +99,15 @@ class RecipeController extends Controller
 
         $followedUserId = Follow::where('follower_id', $userId)->pluck('user_id');
         foreach ($followedUserId as $key => $userId) {
-            $user = User::find($userId);
+
+            Notification::create([
+                'follower_id' => Auth()->user()->id,
+                'user_id' => $userId,
+                'content' => Auth()->user()->name . ' đã đăng món ăn mới',
+                "type" => Notification::TYPE_RECIPE,
+                "status" => Notification::STATUS_UNREAD,
+            ]);
+
             event(new MessageNotification(Auth()->user()->name . ' just posted a new post', $userId));
         }
 
@@ -167,7 +176,7 @@ class RecipeController extends Controller
         });
 
         return view('recipes.show', [
-            'recipe' => $recipe, 
+            'recipe' => $recipe,
             'tagNames' => $tagNames,
             'allTagNames' => $allTagNames,
             'comments' => $comments

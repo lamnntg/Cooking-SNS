@@ -14,7 +14,7 @@ class MessageNotification implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message;
+    public $content;
     public $userId;
 
     /**
@@ -22,9 +22,9 @@ class MessageNotification implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct($message = 'No message', $userId = null)
+    public function __construct($content = 'No message', $userId = null)
     {
-        $this->message = $message;
+        $this->content = $content;
         $this->userId = $userId;
     }
 

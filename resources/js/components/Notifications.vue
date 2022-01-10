@@ -13,7 +13,7 @@
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuNoti">
       <li v-for="item in notifications" :key="item.id">
-                <a class="dropdown-item " href="#"> {{ item.message }} </a>
+                <a class="dropdown-item " href="#"> {{ item.content }} </a>
             </li>
         </ul>
     </div>
@@ -21,8 +21,17 @@
 
 <script>
 export default {
+    created() {
+        $.ajax({
+            url: '/api/notifications/user/' + this.user,
+            type: 'GET',
+            success: (data) => {
+                this.notifications = data;
+                this.count = data.length;
+            }
+        });
+    },
     props: {
-        notificationsData: [Object, Array],
         userId: {
             type: Number
         }
@@ -38,7 +47,7 @@ export default {
     },
     data() {
         return {
-            notifications: this.notificationsData ? this.notificationsData : [],
+            notifications: [],
             user: this.userId,
             count: 0
         };
