@@ -80,7 +80,6 @@ class RecipeController extends Controller
             $response = $client->post($url, [
                 'form_params' => [
                     'image' => $image,
-                    'name' => $request->image->getClientOriginalName(),
                 ]
             ]);
             $responseData = json_decode($response->getBody()->getContents());
@@ -151,7 +150,6 @@ class RecipeController extends Controller
             $response = $client->post($url, [
                 'form_params' => [
                     'image' => $image,
-                    'name' => $request->image->getClientOriginalName(),
                 ]
             ]);
             $responseData = json_decode($response->getBody()->getContents());
