@@ -104,11 +104,11 @@ class UserController extends Controller
         Notification::create([
             'follower_id' => Auth()->user()->id,
             'user_id' => $user->id,
-            'content' => Auth()->user()->name . ' vừa follow bạn', $user->id ,
+            'content' => Auth()->user()->name . ' があなたをフォローしています。', $user->id ,
             "type" => Notification::TYPE_FOLLOW,
             "status" => Notification::STATUS_UNREAD,
         ]);
-        event(new MessageNotification(Auth()->user()->name . ' vừa follow bạn', $user->id ));
+        event(new MessageNotification(Auth()->user()->name . ' があなたをフォローしています。', $user->id ));
         return ['name' => $name];
     }
 

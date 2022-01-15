@@ -113,12 +113,12 @@ class RecipeController extends Controller
             Notification::create([
                 'follower_id' => Auth()->user()->id,
                 'user_id' => $userId,
-                'content' => Auth()->user()->name . ' đã đăng món ăn mới',
+                'content' => Auth()->user()->name . ' が新しい記事を投稿しました。',
                 "type" => Notification::TYPE_RECIPE,
                 "status" => Notification::STATUS_UNREAD,
             ]);
 
-            event(new MessageNotification(Auth()->user()->name . ' just posted a new post', $userId));
+            event(new MessageNotification(Auth()->user()->name . ' が新しい記事を投稿しました。', $userId));
         }
 
         return redirect()->route('recipes.index');

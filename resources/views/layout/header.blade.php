@@ -40,7 +40,7 @@
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuUser">
                     <li><a class="dropdown-item"
-                            href="{{ route('profile.index', ['name' => Auth::user()->name]) }}">プロフィール</a></li>
+                            href="{{ route('profile.index', ['name' => Auth::user()->name]) }}">プロファイル</a></li>
                     @if (Auth::user()->is_admin)
                         <li><a class="dropdown-item" href="{{ route('manager.index') }}">管理ページ</a></li>
                     @endif
