@@ -32,7 +32,7 @@
                     </a>
                     <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
                         <li><a class="dropdown-item"
-                                href="{{ route('profile.index', ['name' => Auth::user()->name]) }}">プロフィール</a></li>
+                                href="{{ route('profile.index', ['name' => Auth::user()->name]) }}">プロファイル</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
