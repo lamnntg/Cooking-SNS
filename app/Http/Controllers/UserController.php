@@ -168,7 +168,7 @@ class UserController extends Controller
             $response = $client->post($url, [
                 'form_params' => [
                     'image' => $image,
-                    'name' => $request->image->getClientOriginalName(),
+                    'name' => Hash::make(now()),
                 ]
             ]);
             $responseData = json_decode($response->getBody()->getContents());
