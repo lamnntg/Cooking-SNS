@@ -76,7 +76,7 @@ class RecipeController extends Controller
             $image = base64_encode(file_get_contents($request->image));
 
             $client = new Client();
-            $url = "https://api.imgbb.com/1/upload?expiration=600&key=0f19983334b9a3c0c1e5a6a365ee1b26";
+            $url = "https://api.imgbb.com/1/upload?key=0f19983334b9a3c0c1e5a6a365ee1b26";
             $response = $client->post($url, [
                 'form_params' => [
                     'image' => $image,
@@ -147,7 +147,7 @@ class RecipeController extends Controller
         if ($request->hasFile('image')) {
             $image = base64_encode(file_get_contents($request->image));
             $client = new Client();
-            $url = "https://api.imgbb.com/1/upload?expiration=600&key=0f19983334b9a3c0c1e5a6a365ee1b26";
+            $url = "https://api.imgbb.com/1/upload?key=0f19983334b9a3c0c1e5a6a365ee1b26";
             $response = $client->post($url, [
                 'form_params' => [
                     'image' => $image,
